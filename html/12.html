@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 상세 카드 - 비사인파</title>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: none;
+            border: 1px solid #000000;
+        }
+        .title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 8px;
+        }
+        .section { margin-bottom: 25px; }
+        .label {
+            font-weight: bold;
+            color: #000000;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            display: block;
+            text-decoration: underline;
+        }
+        .content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #333333;
+        }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .formula {
+            background: #f9f9f9;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #000000;
+            border: 1px solid #000000;
+            margin: 10px 0;
+        }
+        .desc-box {
+            background: #fff;
+            border-left: 3px solid #000;
+            padding-left: 10px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #000000;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">비사인파(왜형파) 상세 설명</div>
+
+        <div class="section">
+            <span class="label">1. 비사인파(왜형파)란?</span>
+            <div class="content">
+                우리가 아는 매끄러운 <span class="bold">사인파(S-자 모양)</span>가 아니라, 찌그러지거나 각진 파형을 말합니다.
+                <div class="desc-box">
+                    - <span class="bold">삼각파:</span> 산 모양처럼 뾰족한 파형<br>
+                    - <span class="bold">사각파(구형파):</span> 네모난 상자 모양 파형
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. 왜형파의 구성 요소 (3요소)</span>
+            <div class="content">이런 찌그러진 파형은 내부적으로 3가지 성분이 합쳐진 것입니다.</div>
+
+            <div class="desc-box">
+                <span class="red">① 직류분:</span> 파형이 전체적으로 위나 아래로 붕 떠 있는 정도 (시간이 지나도 변하지 않는 값)
+            </div>
+            <div class="desc-box">
+                <span class="red">② 기본파:</span> 전체 파형의 <span class="bold">기둥</span>이 되는 가장 크고 깨끗한 사인파
+            </div>
+            <div class="desc-box">
+                <span class="red">③ 고조파:</span> 기본파보다 주파수가 <span class="bold">2배, 3배... 빠른</span> 자잘한 파도들. 이것들이 섞여서 파형을 찌그러트립니다.
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 주요 용어 상세 풀이</span>
+            <div class="content">
+                - <span class="bold">주파수:</span> 1초에 파형이 몇 번 반복되는가?<br>
+                - <span class="bold">n차 고조파:</span> 기본파 주파수의 n배인 파형 (예: 3고조파는 주파수가 3배 빠름)<br>
+                - <span class="red">왜형률:</span> "얼마나 많이 찌그러졌니?"를 나타내는 수치
+            </div>
+            <div class="formula">왜형률 = 고조파들의 합 / 기본파</div>
+        </div>
+
+        <footer>전기기능사 필기 요약 (상세)</footer>
+    </div>
+</body>
+</html>
