@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 반도체 소자</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #ffffff; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 8px; padding: 20px; border: 1px solid #000000; }
+        .title { font-size: 1.2rem; font-weight: bold; color: #000000; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #000000; padding-bottom: 8px; }
+        .section { margin-bottom: 25px; }
+        .label { font-weight: bold; color: #000000; font-size: 1rem; margin-bottom: 8px; display: block; text-decoration: underline; }
+        .content { font-size: 0.95rem; line-height: 1.6; color: #333333; }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .desc-box { background: #fff; border-left: 3px solid #000; padding-left: 10px; margin: 10px 0; font-size: 0.9rem; }
+        footer { text-align: center; font-size: 0.8rem; color: #000000; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">전력용 반도체 소자 핵심 정리</div>
+
+        <div class="section">
+            <span class="label">1. SCR (사이리스터)</span>
+            <div class="content">가장 대표적인 전력 제어 소자입니다.</div>
+            <div class="desc-box">
+                - 특징: <span class="red">단방향 3단자</span> 소자<br>
+                - 역할: 한쪽 방향으로만 전류를 흘리며 제어함<br>
+                - 기호 성분: 애노드(A), 캐소드(K), <span class="bold">게이트(G)</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. TRIAC (트라이액)</span>
+            <div class="content">SCR 두 개를 반대로 붙여놓은 모양입니다.</div>
+            <div class="desc-box">
+                - 특징: <span class="red">양방향 3단자</span> 소자<br>
+                - 역할: 교류(AC)의 양방향 전류를 모두 제어 가능<br>
+                - 용도: 교류 전등 밝기 조절, 전동기 속도 제어
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 추가로 꼭 알아야 할 소자</span>
+            <div class="desc-box">
+                - <span class="bold">DIAC (다이액):</span> <span class="red">양방향 2단자</span> (게이트 없음)<br>
+                - <span class="bold">SCS:</span> 단방향 <span class="red">4단자</span> (단자가 4개면 무조건 SCS)<br>
+                - <span class="bold">SSS:</span> 양방향 2단자 (다이액과 비슷)
+            </div>
+        </div>
+
+        <footer>전기기능사 필기 요약</footer>
+    </div>
+</body>
+</html>
