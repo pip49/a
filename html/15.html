@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 역률이란?</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #ffffff; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 8px; padding: 20px; border: 1px solid #000000; }
+        .title { font-size: 1.2rem; font-weight: bold; color: #000000; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #000000; padding-bottom: 8px; }
+        .section { margin-bottom: 25px; }
+        .label { font-weight: bold; color: #000000; font-size: 1rem; margin-bottom: 8px; display: block; text-decoration: underline; }
+        .content { font-size: 0.95rem; line-height: 1.6; color: #333333; }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .formula { background: #ffffff; padding: 12px; text-align: center; font-weight: bold; font-size: 1.1rem; color: #000000; border: 1px solid #000000; margin: 10px 0; }
+        .desc-box { background: #fff; border-left: 3px solid #000; padding-left: 10px; margin: 10px 0; font-size: 0.9rem; }
+        footer { text-align: center; font-size: 0.8rem; color: #000000; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">역률 (Power Factor)</div>
+
+        <div class="section">
+            <span class="label">1. 역률의 정의</span>
+            <div class="content">
+                공급된 전체 에너지 중에서 <span class="red">실제로 일을 한 에너지</span>의 비율입니다.
+                <div class="desc-box">
+                    - 쉽게 말해: "전기의 효율성"<br>
+                    - 기호: <span class="bold">cosθ (코사인 세타)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. 세 가지 전력의 관계</span>
+            <div class="content">
+                역률을 이해하려면 전력의 종류를 알아야 합니다.
+                <div class="desc-box">
+                    ① <span class="bold">피상전력(Pa):</span> 전체 공급된 전력 [VA]<br>
+                    ② <span class="red">유효전력(P):</span> 실제 일을 한 전력 [W]<br>
+                    ③ <span class="bold">무효전력(Pr):</span> 왔다갔다만 하는 전력 [var]
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 핵심 공식</span>
+            <div class="formula">역률(cosθ) = 유효전력 / 피상전력</div>
+            <div class="content">
+                역률이 <span class="bold">1(100%)</span>에 가까울수록 전기를 아주 알뜰하게 잘 쓰고 있다는 뜻입니다.
+            </div>
+        </div>
+
+        <footer>전기기능사 필기 요약</footer>
+    </div>
+</body>
+</html>
