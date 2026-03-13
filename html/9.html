@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 자속과 자속 밀도</title>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: none;
+            border: 1px solid #000000;
+        }
+        .title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 8px;
+        }
+        .section { margin-bottom: 15px; }
+        .label {
+            font-weight: bold;
+            color: #000000;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .content {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #000000;
+        }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .formula {
+            background: #ffffff;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #000000;
+            border: 1px solid #000000;
+            margin: 10px 0;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #000000;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">자속(Φ)과 자속 밀도(B)</div>
+
+        <div class="section">
+            <span class="label">1. 자속 (Magnetic Flux)</span>
+            <div class="content">자기력선의 묶음 (자기적인 흐름의 양)</div>
+            <div class="content">기호: <span class="bold">Φ (파이)</span></div>
+            <div class="content">단위: <span class="red">[Wb] (웨버)</span></div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. 자속 밀도 (Magnetic Flux Density)</span>
+            <div class="content">단위 면적당 수직으로 통과하는 자속의 양</div>
+            <div class="formula">B = Φ / A</div>
+            <div class="content">단위: <span class="red">[T] (테슬라)</span> 또는 [Wb/m²]</div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 핵심 관계</span>
+            <div class="content">- 면적(A)이 넓을수록 밀도는 <span class="bold">작아짐</span></div>
+            <div class="content">- 자속(Φ)이 많을수록 밀도는 <span class="red">높아짐</span></div>
+        </div>
+
+        <footer>전기기능사 필기 요약</footer>
+    </div>
+</body>
+</html>
