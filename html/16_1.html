@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 델타결선</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #ffffff; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 8px; padding: 20px; border: 1px solid #000000; }
+        .title { font-size: 1.2rem; font-weight: bold; color: #000000; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #000000; padding-bottom: 8px; }
+        .section { margin-bottom: 25px; }
+        .label { font-weight: bold; color: #000000; font-size: 1rem; margin-bottom: 8px; display: block; text-decoration: underline; }
+        .content { font-size: 0.95rem; line-height: 1.6; color: #333333; }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .formula { background: #ffffff; padding: 12px; text-align: center; font-weight: bold; font-size: 1.1rem; color: #000000; border: 1px solid #000000; margin: 10px 0; }
+        .desc-box { background: #fff; border-left: 3px solid #000; padding-left: 10px; margin: 10px 0; font-size: 0.9rem; }
+        footer { text-align: center; font-size: 0.8rem; color: #000000; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">Δ(델타)결선: 전압과 전류</div>
+
+        <div class="section">
+            <span class="label">1. 특징</span>
+            <div class="content">세 개의 부하를 삼각형 모양으로 연결한 방식입니다. <span class="bold">중성점(N)이 없어</span> 주로 동력용(3상 3선식)으로 쓰입니다.</div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. 전압의 관계 (Y결선과 반대!)</span>
+            <div class="content">선과 상이 나란히 연결되어 있어 <span class="red">전압이 같습니다.</span></div>
+            <div class="formula">선간전압(Vl) = 상전압(Vp)</div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 전류의 관계 (암기 필수!)</span>
+            <div class="content">갈림길이 생기기 때문에 <span class="red">선전류가 더 큽니다.</span></div>
+            <div class="formula">선전류 = √3 × 상전류</div>
+            <div class="content">또한, 선전류의 위상은 상전류보다 <span class="red">30도 늦습니다.</span></div>
+        </div>
+
+        <footer>전기기능사 필기 요약</footer>
+    </div>
+</body>
+</html>
