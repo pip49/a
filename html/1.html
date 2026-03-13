@@ -7,7 +7,19 @@
     <title>전기기능사 카드 - 전하</title>
     <style>
         body { font-family: 'Pretendard', sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 20px; padding: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.08); border-top: 10px solid #3498db; }
+
+        /* .card 부분에서 box-shadow를 none으로 수정했습니다 */
+        .card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: none; /* 그림자 삭제 */
+            border: 1px solid #dee2e6; /* 그림자 대신 얇은 테두리 추가 (선택사항) */
+            border-top: 10px solid #3498db;
+        }
+
         .title { font-size: 1.4rem; font-weight: 800; color: #2c3e50; margin-bottom: 20px; text-align: center; }
         .section { margin-bottom: 20px; }
         .label { font-weight: bold; color: #3498db; font-size: 0.9rem; display: block; margin-bottom: 5px; }
@@ -32,17 +44,15 @@
         </div>
 
         <div class="section">
-            <span class="label">전자 1개의 전하량 (암기 필수!)</span>
+            <span class="label">전자 1개의 전하량</span>
             <div class="formula">e = -1.602 × 10⁻¹⁹ [C]</div>
-            <div class="content" style="font-size: 0.9rem; text-align: center;">※ 1[C]은 전자 약 6.25 × 10¹⁸ 개의 모임</div>
         </div>
 
         <div class="section">
             <span class="label">핵심 성질</span>
             <ul class="content" style="padding-left: 20px;">
-                <li><span class="highlight">전하량 보존</span>: 총량은 일정함</li>
-                <li>같은 극성: 반발력(미는 힘)</li>
-                <li>다른 극성: 흡인력(당기는 힘)</li>
+                <li>전하량 보존: 총량은 일정함</li>
+                <li>동종 전하: 반발력 / 이종 전하: 흡인력</li>
             </ul>
         </div>
 
