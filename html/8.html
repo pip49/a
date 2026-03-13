@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>전기기능사 카드 - 전하</title>
+    <title>전기기능사 카드 - 법칙 비교</title>
     <style>
         body {
             font-family: 'Pretendard', sans-serif;
@@ -14,7 +14,6 @@
             display: flex;
             justify-content: center;
         }
-
         .card {
             background: #ffffff;
             width: 100%;
@@ -24,7 +23,6 @@
             box-shadow: none;
             border: 1px solid #000000;
         }
-
         .title {
             font-size: 1.2rem;
             font-weight: bold;
@@ -34,9 +32,7 @@
             border-bottom: 2px solid #000000;
             padding-bottom: 8px;
         }
-
         .section { margin-bottom: 15px; }
-
         .label {
             font-weight: bold;
             color: #000000;
@@ -44,22 +40,13 @@
             margin-bottom: 5px;
             display: block;
         }
-
         .content {
             font-size: 1rem;
             line-height: 1.5;
             color: #000000;
         }
-
-        .red {
-            color: #ff0000;
-            font-weight: bold;
-        }
-
-        .bold {
-            font-weight: bold;
-        }
-
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
         .formula {
             background: #ffffff;
             padding: 12px;
@@ -70,7 +57,6 @@
             border: 1px solid #000000;
             margin: 10px 0;
         }
-
         footer {
             text-align: center;
             font-size: 0.8rem;
@@ -83,25 +69,27 @@
 </head>
 <body>
     <div class="card">
-        <div class="title">전하 (Electric Charge)</div>
+        <div class="title">법칙 비교: 앙페르 vs 패러데이</div>
 
         <div class="section">
-            <span class="label">1. 정의 및 단위</span>
-            <div class="content">전기 현상의 원인이 되는 에너지의 양</div>
-            <div class="content">기호: <span class="bold">Q</span> / 단위: <span class="red">[C] (쿨롱)</span></div>
+            <span class="label">1. 앙페르의 오른나사 법칙</span>
+            <div class="content">전류가 흐르면 그 주변에 <span class="red">자기장</span>이 생기는 방향을 결정</div>
+            <div class="content">- 엄지: <span class="bold">전류</span>의 방향</div>
+            <div class="content">- 나머지 네 손가락: <span class="bold">자기장</span>의 방향</div>
         </div>
 
         <div class="section">
-            <span class="label">2. 전자 1개의 전하량 (암기)</span>
-            <div class="formula">e = -1.602 × 10⁻¹⁹ [C]</div>
-            <div class="content">전류가 흐른다는 것은 <span class="red">자유전자</span>가 이동하는 것임</div>
+            <span class="label">2. 패러데이의 전자유도 법칙</span>
+            <div class="content">자기장의 변화가 <span class="red">기전력(전기)</span>을 만드는 원리</div>
+            <div class="formula">e = -N · (ΔΦ / Δt)</div>
+            <div class="content">- <span class="bold">크기</span>: 자속의 변화율에 비례</div>
+            <div class="content">- <span class="bold">방향(렌츠)</span>: 변화를 방해하는 방향 (-)</div>
         </div>
 
         <div class="section">
-            <span class="label">3. 주요 성질</span>
-            <div class="content">- 같은 극성: <span class="bold">반발력</span> (밀어냄)</div>
-            <div class="content">- 다른 극성: <span class="red">흡인력</span> (당김)</div>
-            <div class="content">- <span class="bold">전하량 보존</span>: 총량은 일정함</div>
+            <span class="label">3. 한 줄 요약</span>
+            <div class="content">- 앙페르: 전류 → <span class="red">자기장 발생</span></div>
+            <div class="content">- 패러데이: 자기장 변화 → <span class="red">전기 발생</span></div>
         </div>
 
         <footer>전기기능사 필기 요약</footer>
