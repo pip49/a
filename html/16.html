@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - Y결선 전압</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #ffffff; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 8px; padding: 20px; border: 1px solid #000000; }
+        .title { font-size: 1.2rem; font-weight: bold; color: #000000; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #000000; padding-bottom: 8px; }
+        .section { margin-bottom: 25px; }
+        .label { font-weight: bold; color: #000000; font-size: 1rem; margin-bottom: 8px; display: block; text-decoration: underline; }
+        .content { font-size: 0.95rem; line-height: 1.6; color: #333333; }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .formula { background: #ffffff; padding: 12px; text-align: center; font-weight: bold; font-size: 1.1rem; color: #000000; border: 1px solid #000000; margin: 10px 0; }
+        .desc-box { background: #fff; border-left: 3px solid #000; padding-left: 10px; margin: 10px 0; font-size: 0.9rem; }
+        footer { text-align: center; font-size: 0.8rem; color: #000000; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">Y(성형)결선: 선간전압과 상전압</div>
+
+        <div class="section">
+            <span class="label">1. 용어 정의</span>
+            <div class="desc-box">
+                - <span class="bold">상전압 (Vp):</span> 부하(또는 코일) 하나에 걸리는 전압<br>
+                - <span class="bold">선간전압 (Vl):</span> 선과 선 사이에 걸리는 전압
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. Y결선에서의 관계 (암기 필수!)</span>
+            <div class="content">Y결선에서는 전선 두 개를 거쳐서 나오기 때문에 <span class="red">선간전압이 더 큽니다.</span></div>
+            <div class="formula">선간전압 = √3 × 상전압</div>
+            <div class="content">또한, 선간전압의 위상은 상전압보다 <span class="red">30도 앞섭니다.</span></div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 전류의 관계</span>
+            <div class="content">나가는 길이 하나뿐이라서 흐르는 전류는 같습니다.</div>
+            <div class="formula">선전류(Il) = 상전류(Ip)</div>
+        </div>
+
+        <footer>전기기능사 필기 요약</footer>
+    </div>
+</body>
+</html>
