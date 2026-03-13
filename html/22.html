@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 동기발전기</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #ffffff; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 8px; padding: 20px; border: 1px solid #000000; }
+        .title { font-size: 1.2rem; font-weight: bold; color: #000000; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #000000; padding-bottom: 8px; }
+        .section { margin-bottom: 25px; }
+        .label { font-weight: bold; color: #000000; font-size: 1rem; margin-bottom: 8px; display: block; text-decoration: underline; }
+        .content { font-size: 0.95rem; line-height: 1.6; color: #333333; }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .formula { background: #ffffff; padding: 12px; text-align: center; font-weight: bold; font-size: 1.1rem; color: #000000; border: 1px solid #000000; margin: 10px 0; }
+        .desc-box { background: #fff; border-left: 3px solid #000; padding-left: 10px; margin: 10px 0; font-size: 0.9rem; }
+        footer { text-align: center; font-size: 0.8rem; color: #000000; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">동기발전기 (Synchronous Generator)</div>
+
+        <div class="section">
+            <span class="label">1. 기본 원리</span>
+            <div class="content">자석(계자)을 회전시켜서 고정된 코일(전기자)에 전기를 유도하는 방식입니다.</div>
+            <div class="desc-box">
+                - 대부분의 발전소는 <span class="red">회전계자형</span>을 사용합니다.<br>
+                - 이유: 구조가 튼튼하고 고전압 절연이 쉽기 때문입니다.
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. 동기 속도 공식 (암기 필수!)</span>
+            <div class="content">회전 속도(Ns)는 극수(P)와 주파수(f)에 의해 결정됩니다.</div>
+            <div class="formula">Ns = (120 × f) / P</div>
+            <div class="content">예: 4극, 60Hz인 발전기의 속도는?<br>→ (120 × 60) / 4 = <span class="red">1,800 [rpm]</span></div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 주요 특징</span>
+            <div class="desc-box">
+                - <span class="bold">동기화:</span> 속도와 주파수가 일정하게 유지됨<br>
+                - <span class="bold">병렬 운전 조건:</span> 전압, 주파수, 위상, 파형이 같아야 함 (암기: <span class="red">전주위파</span>)
+            </div>
+        </div>
+
+        <footer>전기기능사 필기 요약</footer>
+    </div>
+</body>
+</html>
