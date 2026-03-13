@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 정현파와 교류</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #ffffff; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 8px; padding: 20px; border: 1px solid #000000; }
+        .title { font-size: 1.2rem; font-weight: bold; color: #000000; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #000000; padding-bottom: 8px; }
+        .section { margin-bottom: 25px; }
+        .label { font-weight: bold; color: #000000; font-size: 1rem; margin-bottom: 8px; display: block; text-decoration: underline; }
+        .content { font-size: 0.95rem; line-height: 1.6; color: #333333; }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .desc-box { background: #fff; border-left: 3px solid #000; padding-left: 10px; margin: 10px 0; font-size: 0.9rem; }
+        footer { text-align: center; font-size: 0.8rem; color: #000000; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">정현파와 비정현파 교류</div>
+
+        <div class="section">
+            <span class="label">1. 정현파 교류 (Sine Wave)</span>
+            <div class="content">
+                '정현'은 수학의 <span class="bold">사인(Sine)</span>을 한자로 옮긴 말입니다.
+                시간에 따라 크기와 방향이 <span class="red">매끄러운 곡선</span>으로 변하는 전기입니다.
+                <div class="desc-box">
+                    - 특징: 우리가 가정에서 쓰는 220V 전기가 바로 이것입니다.<br>
+                    - 장점: 발전기에서 만들어낼 수 있는 가장 자연스럽고 효율적인 형태입니다.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. 비정현파 교류 (Non-Sine Wave)</span>
+            <div class="content">
+                말 그대로 "정현파가 아닌" 교류들입니다. 모양이 일그러져 있어 <span class="bold">왜형파</span>라고도 부릅니다.
+            </div>
+            <div class="desc-box">
+                - <span class="bold">구형파 (사각파):</span> 네모난 모양. 디지털 신호에서 자주 보입니다.<br>
+                - <span class="bold">삼각파 / 톱니파:</span> 세모 모양. 악기나 특수 측정 장비에서 보입니다.<br>
+                - <span class="red">복합파:</span> 여러 고조파가 섞여서 제멋대로 찌그러진 모양입니다.
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 왜 다른 교류가 생길까?</span>
+            <div class="content">
+                원래는 깨끗한 정현파를 보내지만, 중간에 전자기기(반도체 등)를 거치면서 <span class="red">노이즈(고조파)</span>가 섞이면 파형이 찌그러지며 비정현파가 됩니다.
+            </div>
+        </div>
+
+        <footer>전기기능사 필기 요약</footer>
+    </div>
+</body>
+</html>
