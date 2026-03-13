@@ -10,37 +10,9 @@
         body { font-family: 'Arial', sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 20px; margin: 0; }
         .quiz-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 600px; box-sizing: border-box; }
 
-	/* 상단 헤더 및 입력창 스타일 */
-.header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #3498db;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.jump-container { display: flex; align-items: center; gap: 5px; }
-.jump-input {
-    width: 50px;
-    padding: 6px;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
-    text-align: center;
-    font-size: 0.9rem;
-}
-.btn-jump {
-    padding: 6px 10px;
-    font-size: 0.8rem;
-    background: #34495e;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-}
+        /* 상단 헤더 및 모드 스위치 */
+        .header-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3498db; margin-bottom: 15px; padding-bottom: 10px; }
+        h1 { font-size: 1.3rem; color: #2c3e50; margin: 0; }
         .btn-mode { padding: 5px 10px; font-size: 0.8rem; background: #ecf0f1; color: #7f8c8d; border: 1px solid #bdc3c7; border-radius: 4px; cursor: pointer; }
         .btn-mode.active { background: #2ecc71; color: white; border-color: #27ae60; }
 
@@ -67,15 +39,10 @@
 <body>
 
 <div class="quiz-container">
-
-	<div class="header-row">
-    <h1>⚡ 전기기능사 풀이</h1>
-    <div class="jump-container">
-        <input type="number" id="jumpNum" class="jump-input" placeholder="번호">
-        <button class="btn-jump" onclick="goToQuiz()">이동</button>
+    <div class="header-row">
+        <h1>⚡ 전기기능사 풀이</h1>
         <button id="modeBtn" class="btn-mode" onclick="toggleMode()">랜덤 모드</button>
     </div>
-</div>
 
     <div id="quiz-count" style="font-size: 0.85rem; color: #7f8c8d; margin-bottom: 10px;"></div>
 
@@ -223,34 +190,6 @@
         }
         nextQuiz();
     }
-
-// 특정 번호로 바로 가기 함수
-function goToQuiz() {
-    const input = document.getElementById('jumpNum');
-    const num = parseInt(input.value);
-
-    // 유효성 검사 (입력값이 없거나 범위를 벗어난 경우)
-    if (isNaN(num) || num < 1 || num > quizData.length) {
-        alert(`1부터 ${quizData.length} 사이의 숫자를 입력해주세요.`);
-        return;
-    }
-
-    // 번호 이동 시 자동으로 '순차 모드'로 전환하여 학습 흐름 유지
-    if (isRandomMode) {
-        isRandomMode = false;
-        const modeBtn = document.getElementById('modeBtn');
-        modeBtn.innerText = "순차 모드";
-        modeBtn.classList.add('active');
-    }
-
-    sequentialIndex = num - 1; // 배열 인덱스는 0부터 시작하므로 1을 뺌
-    displayQuiz(sequentialIndex);
-    sequentialIndex++; // 다음 문제 클릭 시 다음 번호가 나오도록 세팅
-    updatePrevButton();
-
-    input.value = ''; // 이동 후 입력창 비우기
-    input.blur();    // 키보드 닫기 (모바일 대응)
-}
 
     function nextQuiz() {
         if (!quizData || quizData.length === 0) return;
