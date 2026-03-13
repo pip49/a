@@ -62,6 +62,39 @@
 
         .info { font-size: 0.85rem; color: #95a5a6; margin-top: 20px; text-align: center; }
         a { color: #3498db; text-decoration: underline; }
+
+	/* 아주 작은 푸터 스타일 */
+.mini-footer {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    font-size: 0.75rem; /* 아주 작은 글씨 */
+    color: #95a5a6; /* 연한 회색 */
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #3498db; /* 마우스 올리면 파란색 */
+    text-decoration: underline;
+}
+
+/* 구분선(|) 스타일 */
+.footer-links span {
+    font-size: 0.7rem;
+    color: #ecf0f1;
+}
     </style>
 </head>
 <body>
@@ -75,6 +108,7 @@
         <button class="btn-jump" onclick="goToQuiz()">이동</button>
         <button id="modeBtn" class="btn-mode" onclick="toggleMode()">랜덤 모드</button>
     </div>
+
 </div>
 
     <div id="quiz-count" style="font-size: 0.85rem; color: #7f8c8d; margin-bottom: 10px;"></div>
@@ -94,6 +128,21 @@
     </div>
 
     <p class="info" id="statusInfo">모드를 선택하고 학습을 시작하세요.</p>
+<div class="mini-footer">
+    <div class="footer-links">
+        <a href="list.html">목차</a>
+        <span>|</span>
+        <a href="th.html">이론</a>
+        <span>|</span>
+        <a href="ma.html">기기</a>
+        <span>|</span>
+        <a href="eq.html">설비1</a>
+        <span>|</span>
+        <a href="ip.html">설비2</a>
+
+    </div>
+</div>
+
 </div>
 
 <script>
