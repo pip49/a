@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 병렬 합성저항</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: none;
+            border: 1px solid #dee2e6;
+            border-top: 10px solid #2ecc71; /* 병렬은 초록색 테마 */
+        }
+        .title { font-size: 1.4rem; font-weight: 800; color: #2c3e50; margin-bottom: 20px; text-align: center; }
+        .section { margin-bottom: 20px; }
+        .label { font-weight: bold; color: #27ae60; font-size: 0.9rem; display: block; margin-bottom: 5px; }
+        .content { font-size: 1.05rem; line-height: 1.5; color: #34495e; }
+        .highlight { background: #e8f5e9; font-weight: bold; padding: 2px 5px; border-radius: 4px; color: #2e7d32; }
+        .formula { background: #f8f9fa; padding: 15px; border-radius: 10px; text-align: center; font-weight: bold; font-size: 1.1rem; color: #e67e22; border: 1px solid #dee2e6; margin: 10px 0; }
+        .tip { font-size: 0.9rem; color: #7f8c8d; background: #fffbe6; padding: 10px; border-left: 3px solid #f1c40f; margin-top: 5px; }
+        footer { text-align: center; font-size: 0.8rem; color: #bdc3c7; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">📉 병렬 합성저항 (R<sub>p</sub>)</div>
+
+        <div class="section">
+            <span class="label">기본 원리</span>
+            <div class="content">저항을 병렬로 연결할수록 <span class="highlight">전체 저항값은 작아집니다.</span> (전류의 길이 넓어짐)</div>
+        </div>
+
+        <div class="section">
+            <span class="label">방법 1. 저항이 2개일 때 (필살기)</span>
+            <div class="formula">R = (R₁ × R₂) / (R₁ + R₂)</div>
+            <div class="tip">외우는 법: <strong>"합분의 곱"</strong> (더한 것 분의 곱한 것)</div>
+        </div>
+
+        <div class="section">
+            <span class="label">방법 2. 저항이 여러 개일 때</span>
+            <div class="formula">1/R = 1/R₁ + 1/R₂ + 1/R₃ ...</div>
+            <div class="content" style="font-size: 0.9rem;">※ 역수를 다 더한 후, 다시 한번 역수를 취해줘야 합니다.</div>
+        </div>
+
+        <div class="section">
+            <span class="label">방법 3. 같은 값의 저항 n개일 때</span>
+            <div class="formula">R = R₁ / n</div>
+            <div class="content" style="font-size: 0.9rem;">예: 10Ω 저항 2개 병렬 → 10 / 2 = 5Ω</div>
+        </div>
+
+        <footer>© 전기기능사 합격 노트</footer>
+    </div>
+</body>
+</html>
