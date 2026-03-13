@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 배선공사</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #ffffff; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 8px; padding: 20px; border: 1px solid #000000; }
+        .title { font-size: 1.2rem; font-weight: bold; color: #000000; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #000000; padding-bottom: 8px; }
+        .section { margin-bottom: 25px; }
+        .label { font-weight: bold; color: #000000; font-size: 1rem; margin-bottom: 8px; display: block; text-decoration: underline; }
+        .content { font-size: 0.95rem; line-height: 1.6; color: #333333; }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .desc-box { background: #fff; border-left: 3px solid #000; padding-left: 10px; margin: 10px 0; font-size: 0.9rem; }
+        footer { text-align: center; font-size: 0.8rem; color: #000000; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">배선공사의 종류와 특징</div>
+
+        <div class="section">
+            <span class="label">1. 금속관 공사 (가장 튼튼함)</span>
+            <div class="content">전선을 금속 파이프 안에 넣는 방식입니다.</div>
+            <div class="desc-box">
+                - 장점: 화재 예방 및 외부 충격에 매우 강함<br>
+                - 특징: 관 내부에서 전선 <span class="red">접속 금지</span><br>
+                - 접지: 관 자체에 반드시 <span class="bold">접지</span>를 해야 함
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. 합성수지관(PVC) 공사</span>
+            <div class="content">플라스틱 파이프를 이용한 공사입니다.</div>
+            <div class="desc-box">
+                - 장점: <span class="bold">절연</span>이 잘 되고 부식에 강함<br>
+                - 지지점 간 거리: <span class="red">1.5m</span> 이하<br>
+                - 열에 약하므로 고온 장소는 피해야 함
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 금속제 가요전선관 공사</span>
+            <div class="content">잘 구부러지는 뱀띠 모양의 관입니다.</div>
+            <div class="desc-box">
+                - 용도: 전동기 등 <span class="bold">진동</span>이 있는 곳의 연결<br>
+                - 종류: 1종, 2종(비닐 피복)
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">4. 애자 사용 공사</span>
+            <div class="content">전선을 애자라는 절연체에 묶어 공중에 띄우는 방식</div>
+            <div class="desc-box">
+                - 이격거리(전선-노면): <span class="bold">2.5m</span> 이상<br>
+                - 이격거리(전선-벽면): <span class="red">2.5cm</span> 이상
+            </div>
+        </div>
+
+        <footer>전기설비 기술기준 요약</footer>
+    </div>
+</body>
+</html>
