@@ -123,6 +123,49 @@ body {
     align-items: center;
 }
 
+	/* AI 번역 및 읽기 도구 스타일 */
+.ai-translate-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fdfdfd;
+    border: 1px dashed #3498db;
+    border-radius: 8px;
+    text-align: left;
+}
+.ai-translate-box textarea {
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+    resize: none;
+}
+.ai-btn-group {
+    display: flex;
+    gap: 5px;
+    margin-top: 8px;
+}
+.ai-btn {
+    flex: 1;
+    padding: 8px !important;
+    font-size: 0.8rem !important;
+    background: #3498db;
+    color: white;
+    cursor: pointer;
+}
+.ai-btn.speak { background: #2ecc71; }
+.translation-result {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #2c3e50;
+    min-height: 1.2em;
+    padding: 5px;
+    border-left: 3px solid #3498db;
+    background: #eff7fd;
+}
+
     </style>
 </head>
 <body>
@@ -162,6 +205,15 @@ body {
    <div class="proverb-container">
     <div id="proverbText" class="proverb-text">오늘의 한 마디를 불러오는 중...</div>
  
+<div class="ai-translate-box">
+    <textarea id="aiInput" placeholder="푸터의 격언이나 본문을 복사해서 붙여넣으세요."></textarea>
+    <div class="ai-btn-group">
+        <button class="ai-btn" onclick="runTranslate()">번역하기</button>
+        <button class="ai-btn speak" onclick="runSpeak()">🔊 읽어주기</button>
+    </div>
+    <div id="aiResult" class="translation-result" style="display:none;"></div>
+</div>
+
 <div class="mini-footer">
     <div class="footer-links">
         <a href="list.html">목차</a>
@@ -427,6 +479,44 @@ function showAnswer() {
 }
 
 window.onload = nextQuiz;
+
+// 번역 및 음성 읽기 기능
+async function runTranslate() {
+    const text = document.getElementById('aiInput').value;
+    const resultDiv = document.getElementById('aiResult');
+
+    if (!text) { alert("내용을 입력해주세요."); return; }
+
+    const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
+    const targetLang = isKorean ? 'en' : 'ko';
+
+    resultDiv.style.display = 'block';
+    resultDiv.innerText = "번역 중...";
+
+    try {
+        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURI(text)}`);
+        const data = await res.json();
+        resultDiv.innerText = "결과: " + data[0][0][0];
+    } catch (e) {
+        resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
+    }
+}
+
+function runSpeak() {
+    const text = document.getElementById('aiInput').value;
+    if (!text) return;
+
+    window.speechSynthesis.cancel(); // 기존 소리 멈춤
+    const speech = new SpeechSynthesisUtterance(text);
+
+    // 언어 감지 후 설정
+    const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
+    speech.lang = isKorean ? 'ko-KR' : 'en-US';
+    speech.rate = 1.0;
+
+    window.speechSynthesis.speak(speech);
+}
+
 </script>
 </body>
 </html>

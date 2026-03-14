@@ -95,6 +95,34 @@
     font-size: 0.7rem;
     color: #ecf0f1;
 }
+
+	/* 격언 카드 스타일 */
+.proverb-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: none;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    margin-top: 40px; /* 메인 카드와의 간격 */
+    text-align: center;
+}
+
+.proverb-text {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+    font-style: italic;
+    line-height: 1.6;
+    word-break: keep-all;
+}
+
+/* 전체 레이아웃 정렬을 위한 body 수정 */
+body {
+    flex-direction: column; /* 카드를 세로로 배치 */
+    align-items: center;
+}
+
     </style>
 </head>
 <body>
@@ -130,6 +158,10 @@
     </div>
 
     <p class="info" id="statusInfo">모드를 선택하고 학습을 시작하세요.</p>
+
+   <div class="proverb-container">
+    <div id="proverbText" class="proverb-text">오늘의 한 마디를 불러오는 중...</div>
+ 
 <div class="mini-footer">
     <div class="footer-links">
         <a href="list.html">목차</a>
@@ -153,29 +185,29 @@
     // [문제 및 선택지, 정답] 형식
     // 여기에 모든 데이터를 넣으시면 됩니다.
 	const quizData = [
-  ["<span style='color: #003399;'>1. 다음 중 전하의 성질에 대한 설명으로 틀린 것은?</span><br><br>① 같은 종류의 전하는 흡인하고 다른 종류는 반발한다.<br>② 전하량은 보존된다.<br>③ 전하는 가장 뾰족한 부분에 많이 모이는 성질이 있다.<br>④ 자유전자가 과잉된 상태를 (-)대전이라 한다.", "1 (해설: 같은 종류의 전하는 반발하고, 다른 종류의 전하끼리 흡인합니다.)"],
+		["<span style='color: #003399;'>1. 다음 중 전하의 성질에 대한 설명으로 틀린 것은?</span><br><br>① 같은 종류의 전하는 흡인하고 다른 종류는 반발한다.<br>② 전하량은 보존된다.<br>③ 전하는 가장 뾰족한 부분에 많이 모이는 성질이 있다.<br>④ 자유전자가 과잉된 상태를 (-)대전이라 한다.", "1 (해설: 같은 종류의 전하는 반발하고, 다른 종류의 전하끼리 흡인합니다.)<br><br><a href='html/1.html' target='_blank'>전하</a>"],
   ["<span style='color: #003399;'>2. 어떤 도체에 5초 동안 20[C]의 전하가 이동하였다면 이때 흐르는 전류[A]는?</span><br><br>① 2<br>② 4<br>③ 5<br>④ 100", "2 (해설: 전류 I = Q / t = 20 / 5 = 4[A]입니다.)"],
   ["<span style='color: #003399;'>3. 1[kWh]를 열량으로 환산하면 약 몇 [kcal]인가?</span><br><br>① 640<br>② 720<br>③ 860<br>④ 1000", "3 (해설: 1[kWh] = 860[kcal]는 필수 암기 사항입니다.)"],
   ["<span style='color: #003399;'>4. 옴의 법칙을 바르게 나타낸 것은?</span><br><br>① I = V / R<br>② V = I / R<br>③ R = V * I<br>④ I = V * R", "1 (해설: 전류는 전압에 비례하고 저항에 반비례합니다.)"],
-  ["<span style='color: #003399;'>5. 10[Ω] 저항 5개를 병렬로 접속했을 때의 합성저항은 몇 [Ω]인가?</span><br><br>① 2<br>② 5<br>③ 10<br>④ 50", "1 (해설: 병렬 합성저항 R = 저항값 / 개수 = 10 / 5 = 2[Ω]입니다.)"],
+		["<span style='color: #003399;'>5. 10[Ω] 저항 5개를 병렬로 접속했을 때의 합성저항은 몇 [Ω]인가?</span><br><br>① 2<br>② 5<br>③ 10<br>④ 50", "1 (해설: 병렬 합성저항 R = 저항값 / 개수 = 10 / 5 = 2[Ω]입니다.)<br><br><a href='html/5.html' target='_blank'>병렬합성저항</a>"],
   ["<span style='color: #003399;'>6. 저항의 직렬회로에서 각 저항에 흐르는 전류의 크기는?</span><br><br>① 저항에 비례한다<br>② 저항에 반비례한다<br>③ 모두 같다<br>④ 모두 다르다", "3 (해설: 직렬회로에서는 모든 지점의 전류가 동일합니다.)"],
   ["<span style='color: #003399;'>7. 전력(P)의 단위가 아닌 것은?</span><br><br>① [W]<br>② [HP]<br>③ [J/s]<br>④ [Wh]", "4 (해설: [Wh]는 전력량의 단위입니다.)"],
-  ["<span style='color: #003399;'>8. '자기력선의 방향은 오른나사를 돌릴 때 나사의 진행 방향과 같다'는 법칙은?</span><br><br>① 앙페르의 오른나사 법칙<br>② 플레밍의 왼손 법칙<br>③ 패러데이의 법칙<br>④ 렌츠의 법칙", "1 (해설: 전류와 자기장의 방향 관계를 나타내는 법칙입니다.)"],
-  ["<span style='color: #003399;'>9. 자속밀도 2[Wb/m²]인 자기장 속에 10[cm] 도선을 자기장과 수직으로 놓고 5[A]의 전류를 흘릴 때 도선이 받는 힘[N]은?</span><br><br>① 1<br>② 10<br>③ 0.1<br>④ 0.01", "1 (해설: F = BIl = 2 * 0.1 * 5 = 1[N]입니다.)"],
+		["<span style='color: #003399;'>8. '자기력선의 방향은 오른나사를 돌릴 때 나사의 진행 방향과 같다'는 법칙은?</span><br><br>① 앙페르의 오른나사 법칙<br>② 플레밍의 왼손 법칙<br>③ 패러데이의 법칙<br>④ 렌츠의 법칙", "1 (해설: 전류와 자기장의 방향 관계를 나타내는 법칙입니다.)<br><br><a href='html/8.html' target='_blank'>앙페르/패러데이</a>"],
+		["<span style='color: #003399;'>9. 자속밀도 2[Wb/m²]인 자기장 속에 10[cm] 도선을 자기장과 수직으로 놓고 5[A]의 전류를 흘릴 때 도선이 받는 힘[N]은?</span><br><br>① 1<br>② 10<br>③ 0.1<br>④ 0.01", "1 (해설: F = BIl = 2 * 0.1 * 5 = 1[N]입니다.)<br><br><a href='html/9.html' target='_blank'>자속밀도</a>"],
   ["<span style='color: #003399;'>10. 유도기전력의 크기는 자속의 변화율에 비례한다는 법칙은?</span><br><br>① 렌츠의 법칙<br>② 패러데이의 법칙<br>③ 쿨롱의 법칙<br>④ 키르히호프의 법칙", "2 (해설: 유도기전력의 크기는 패러데이, 방향은 렌츠입니다.)"],
   ["<span style='color: #003399;'>11. 전해액에 전류가 흐를 때 석출되는 물질의 양은 통과한 전기량에 비례한다는 법칙은?</span><br><br>① 렌츠의 법칙<br>② 패러데이의 법칙<br>③ 플레밍의 법칙<br>④ 비오-사바르의 법칙", "2 (해설: 전기분해 시 물질 석출량에 관한 패러데이 법칙입니다.)"],
-  ["<span style='color: #003399;'>12. 비사인파(왜형파)의 구성 성분이 아닌 것은?</span><br><br>① 직류분<br>② 기본파<br>③ 고조파<br>④ 삼각파", "4 (해설: 비사인파는 직류분 + 기본파 + 고조파로 이루어집니다.)"],
+		["<span style='color: #003399;'>12. 비사인파(왜형파)의 구성 성분이 아닌 것은?</span><br><br>① 직류분<br>② 기본파<br>③ 고조파<br>④ 삼각파", "4 (해설: 비사인파는 직류분 + 기본파 + 고조파로 이루어집니다.)<br><br><a href='html/12.html' target='_blank'>파형</a>"],
   ["<span style='color: #003399;'>13. 주파수 60[Hz]의 주기는 약 몇 [sec]인가?</span><br><br>① 0.012<br>② 0.017<br>③ 0.02<br>④ 0.03", "2 (해설: 주기 T = 1 / f = 1 / 60 ≒ 0.0167[s]입니다.)"],
-  ["<span style='color: #003399;'>14. 정현파 교류의 실효값과 최댓값의 관계는?</span><br><br>① 실효값 = 최댓값 / √2<br>② 실효값 = 최댓값 * √2<br>③ 실효값 = 최댓값 / 2<br>④ 실효값 = 최댓값 * 2", "1 (해설: 실효값은 최댓값의 약 70.7%입니다.)"],
-  ["<span style='color: #003399;'>15. 역률을 개선하기 위해 부하와 병렬로 연결하는 것은?</span><br><br>① 전력용 콘덴서<br>② 리액터<br>③ 변압기<br>④ 전동기", "1 (해설: 콘덴서의 진상전류를 이용해 역률을 보상합니다.)"],
-  ["<span style='color: #003399;'>16. 3상 교류 성형(Y)결선에서 선간전압과 상전압의 관계는?</span><br><br>① 선간전압 = 상전압<br>② 선간전압 = √3 * 상전압<br>③ 선간전압 = 상전압 / √3<br>④ 선간전압 = 3 * 상전압", "2 (해설: Y결선에서 선간전압은 상전압의 √3배입니다.)"],
-  ["<span style='color: #003399;'>17. 반도체 소자 중 단방향성 3단자 소자인 것은?</span><br><br>① DIAC<br>② TRIAC<br>③ SCR<br>④ SSS", "3 (해설: SCR은 단방향 제어 소자의 대표격입니다.)"],
+		["<span style='color: #003399;'>14. 정현파 교류의 실효값과 최댓값의 관계는?</span><br><br>① 실효값 = 최댓값 / √2<br>② 실효값 = 최댓값 * √2<br>③ 실효값 = 최댓값 / 2<br>④ 실효값 = 최댓값 * 2", "1 (해설: 실효값은 최댓값의 약 70.7%입니다.)<br><br><a href='html/14.html' target='_blank'>정현파 교류</a>"],
+		["<span style='color: #003399;'>15. 역률을 개선하기 위해 부하와 병렬로 연결하는 것은?</span><br><br>① 전력용 콘덴서<br>② 리액터<br>③ 변압기<br>④ 전동기", "1 (해설: 콘덴서의 진상전류를 이용해 역률을 보상합니다.)<br><br><a href='html/15.html' target='_blank'>역률</a>"],
+		["<span style='color: #003399;'>16. 3상 교류 성형(Y)결선에서 선간전압과 상전압의 관계는?</span><br><br>① 선간전압 = 상전압<br>② 선간전압 = √3 * 상전압<br>③ 선간전압 = 상전압 / √3<br>④ 선간전압 = 3 * 상전압", "2 (해설: Y결선에서 선간전압은 상전압의 √3배입니다.)<br><br><a href='html/16.html' target='_blank'>선간전압/상전압</a><br><br><a href='html/16_1.html' target='_blank'>델타결선</a>"],
+		["<span style='color: #003399;'>17. 반도체 소자 중 단방향성 3단자 소자인 것은?</span><br><br>① DIAC<br>② TRIAC<br>③ SCR<br>④ SSS", "3 (해설: SCR은 단방향 제어 소자의 대표격입니다.)<br><br><a href='html/17.html' target='_blank'>반도체소자</a>"],
   ["<span style='color: #003399;'>18. 직류 발전기의 3요소가 아닌 것은?</span><br><br>① 계자<br>② 전기자<br>③ 정류자<br>④ 슬립링", "4 (해설: 슬립링은 교류 발전기의 구성 요소입니다.)"],
   ["<span style='color: #003399;'>19. 직류 전동기 중 부하가 변할 때 속도가 가장 크게 변하는 전동기는?</span><br><br>① 직권 전동기<br>② 분권 전동기<br>③ 타여자 전동기<br>④ 가동 복권 전동기", "1 (해설: 직권 전동기는 부하 변화에 따른 속도 변동이 매우 큽니다.)"],
   ["<span style='color: #003399;'>20. 변압기의 원리는 무엇을 이용한 것인가?</span><br><br>① 자기포화 현상<br>② 정전유도 현상<br>③ 상호유도 현상<br>④ 자기이력 현상", "3 (해설: 두 코일 사이의 상호유도 작용을 기반으로 합니다.)"],
   ["<span style='color: #003399;'>21. 변압기 유(油)의 구비조건으로 틀린 것은?</span><br><br>① 절연내력이 클 것<br>② 인화점이 낮을 것<br>③ 점도가 낮을 것<br>④ 응고점이 낮을 것", "2 (해설: 안전을 위해 인화점은 최대한 높아야 합니다.)"],
-  ["<span style='color: #003399;'>22. 동기 발전기의 병렬 운전 조건이 아닌 것은?</span><br><br>① 전압의 크기가 같을 것<br>② 위상이 같을 것<br>③ 주파수가 같을 것<br>④ 용량이 같을 것", "4 (해설: 용량의 크기는 병렬 운전의 필수 조건이 아닙니다.)"],
-  ["<span style='color: #003399;'>23. 유도전동기의 슬립(s)이 1인 상태는?</span><br><br>① 정지 상태<br>② 동기 속도로 회전 중<br>③ 무부하 운전 중<br>④ 전속력 회전 중", "1 (해설: 기동 시 혹은 정지 시 슬립은 1입니다.)"],
+		["<span style='color: #003399;'>22. 동기 발전기의 병렬 운전 조건이 아닌 것은?</span><br><br>① 전압의 크기가 같을 것<br>② 위상이 같을 것<br>③ 주파수가 같을 것<br>④ 용량이 같을 것", "4 (해설: 용량의 크기는 병렬 운전의 필수 조건이 아닙니다.)<br><br><a href='html/22.html' target='_blank'>동기발전기</a>"],
+		["<span style='color: #003399;'>23. 유도전동기의 슬립(s)이 1인 상태는?</span><br><br>① 정지 상태<br>② 동기 속도로 회전 중<br>③ 무부하 운전 중<br>④ 전속력 회전 중", "1 (해설: 기동 시 혹은 정지 시 슬립은 1입니다.)<br><br><a href='html/23.html' target='_blank'>유도전동기</a><br><a href='html/23_1.html' target='_blank'>슬립</a>"],
   ["<span style='color: #003399;'>24. 단상 유도전동기 중 기동 토크가 가장 큰 것은?</span><br><br>① 반발 기동형<br>② 콘덴서 기동형<br>③ 분상 기동형<br>④ 셰이딩 코일형", "1 (해설: 기동토크 크기 순서: 반발기동 > 콘덴서 > 분상 > 셰이딩)"],
   ["<span style='color: #003399;'>25. 보호 계전기의 3요소가 아닌 것은?</span><br><br>① 단락 보호<br>② 지락 보호<br>③ 과부하 보호<br>④ 전압 보호", "4 (해설: 계전기의 주 목적은 사고 전류 차단입니다.)"],
   ["<span style='color: #003399;'>26. 금속관 공사에서 관의 굴곡 반지름은 관 안지름의 최소 몇 배 이상이어야 하는가?</span><br><br>① 3<br>② 6<br>③ 10<br>④ 12", "2 (해설: 금속관 굴곡 반지름 규정은 6배입니다.)"],
@@ -184,9 +216,9 @@
   ["<span style='color: #003399;'>29. 전선의 굵기를 측정하는 공구는?</span><br><br>① 와이어 게이지<br>② 프레스기<br>③ 버니어 캘리퍼스<br>④ 토크 렌치", "1 (해설: 와이어 게이지로 전선 번호를 확인합니다.)"],
   ["<span style='color: #003399;'>30. 조명 기구를 배광에 따라 분류할 때 상반방향으로 90~100[%]의 빛을 내는 방식은?</span><br><br>① 직접 조명<br>② 반직접 조명<br>③ 간접 조명<br>④ 전반 확산 조명", "3 (해설: 빛을 천장에 반사시켜 조도를 얻는 방식입니다.)"],
   ["<span style='color: #003399;'>31. 콘센트 시설 시 바닥에서 설치 높이 표준(일반실)은 몇 [m]인가?</span><br><br>① 0.15<br>② 0.3<br>③ 0.5<br>④ 1.2", "2 (해설: 일반적으로 바닥 위 0.3[m] 높이에 설치합니다.)"],
-  ["<span style='color: #003399;'>32. 저압 가공전선이 철도를 횡단하는 경우 레일면상 높이는 몇 [m] 이상인가?</span><br><br>① 5<br>② 5.5<br>③ 6<br>④ 6.5", "4 (해설: 철도 횡단 높이는 안전을 위해 6.5[m]로 규정됩니다.)"],
-  ["<span style='color: #003399;'>33. 화약고 등의 위험 장소에 시설할 수 있는 배선 공사 방법이 아닌 것은?</span><br><br>① 금속관 공사<br>② 합성수지관 공사<br>③ 케이블 공사<br>④ 애자 사용 공사", "4 (해설: 노출 배선인 애자 사용 공사는 화약고에 금지됩니다.)"],
-  ["<span style='color: #003399;'>34. 접지 저항을 측정하는 기기는?</span><br><br>① 메거(Megger)<br>② 콜라우시 브리지<br>③ 와트미터<br>④ 회로 시험기", "2 (해설: 콜라우시 브리지는 정밀한 접지 저항 측정에 쓰입니다.)"],
+		["<span style='color: #003399;'>32. 저압 가공전선이 철도를 횡단하는 경우 레일면상 높이는 몇 [m] 이상인가?</span><br><br>① 5<br>② 5.5<br>③ 6<br>④ 6.5", "4 (해설: 철도 횡단 높이는 안전을 위해 6.5[m]로 규정됩니다.)<br><br><a href='html/32.html' target='_blank'>저압가공전선</a>"],
+		["<span style='color: #003399;'>33. 화약고 등의 위험 장소에 시설할 수 있는 배선 공사 방법이 아닌 것은?</span><br><br>① 금속관 공사<br>② 합성수지관 공사<br>③ 케이블 공사<br>④ 애자 사용 공사", "4 (해설: 노출 배선인 애자 사용 공사는 화약고에 금지됩니다.)<br><br><a href='html/33.html' target='_blank'>배선공사</a><br><a href='html/33_1.html' target='_blank'>배선보충</a>"],
+		["<span style='color: #003399;'>34. 접지 저항을 측정하는 기기는?</span><br><br>① 메거(Megger)<br>② 콜라우시 브리지<br>③ 와트미터<br>④ 회로 시험기", "2 (해설: 콜라우시 브리지는 정밀한 접지 저항 측정에 쓰입니다.)<br><br><a href='html/34.html' target='_blank'>측정기구</a><br><a href='html/34_1.html' target='_blank'>측정기구2</a>"],
   ["<span style='color: #003399;'>35. 전선의 접속 시 주의사항으로 틀린 것은?</span><br><br>① 전선의 세기를 20[%] 이상 감소시키지 말 것<br>② 전기 저항을 증가시키지 말 것<br>③ 절연을 충분히 할 것<br>④ 접속 슬리브를 사용하지 말 것", "4 (해설: 접속 시 슬리브나 커넥터를 사용하여 기계적 강도를 유지해야 합니다.)"],
   ["<span style='color: #003399;'>36. 피뢰기를 설치해야 할 장소가 아닌 것은?</span><br><br>① 변전소의 인입구 및 인출구<br>② 특고압 수용가 인입구<br>③ 가공 전선로와 지중 전선로가 만나는 곳<br>④ 배전용 변압기의 2차측", "4 (해설: 피뢰기는 고전압 인입 부분에 설치합니다.)"],
   ["<span style='color: #003399;'>37. 과전류 차단기를 설치할 수 있는 곳은?</span><br><br>① 접지선<br>② 다선식 전로의 중성선<br>① 간선의 전압선<br>④ 접지측 전선", "3 (해설: 중성선이나 접지선에는 차단기를 설치하지 않습니다.)"],
@@ -259,6 +291,24 @@
     let currentHistoryIndex = -1;
     let isRandomMode = true;
     let sequentialIndex = 0;
+    const proverbData = [
+        "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+        "인생에서 가장 큰 영광은 넘어지지 않는 것이 아니라 넘어질 때마다 일어서는 데 있다.",
+        "The only way to do great work is to love what you do. - Steve Jobs",
+        "천재는 1%의 영감과 99%의 노력으로 이루어진다.",
+        "Believe you can and you're halfway there.",
+        "어제보다 나은 오늘을 만드는 것은 당신의 의지입니다.",
+        "Don't watch the clock; do what it does. Keep going.",
+        "작은 기회로부터 종종 위대한 업적이 시작된다."
+    ];
+
+    function displayProverb() {
+        const proverbElement = document.getElementById('proverbText');
+        if (proverbElement) {
+            const randomIndex = Math.floor(Math.random() * proverbData.length);
+            proverbElement.innerText = proverbData[randomIndex];
+        }
+    }
 
     function toggleMode() {
         isRandomMode = !isRandomMode;
@@ -355,6 +405,7 @@ function goToQuiz() {
 
         const modeLabel = isRandomMode ? "랜덤" : "순차";
         document.getElementById('quiz-count').innerText = `[${modeLabel} 모드] 문항 번호: ${index + 1} / 전체 ${quizData.length}`;
+          displayProverb();
         window.scrollTo(0, 0);
     }
 
@@ -377,6 +428,5 @@ function showAnswer() {
 
 window.onload = nextQuiz;
 </script>
-
 </body>
 </html>
