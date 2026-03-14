@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 측정기구</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #ffffff; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: #ffffff; width: 100%; max-width: 400px; border-radius: 8px; padding: 20px; border: 1px solid #000000; }
+        .title { font-size: 1.2rem; font-weight: bold; color: #000000; margin-bottom: 15px; text-align: center; border-bottom: 2px solid #000000; padding-bottom: 8px; }
+        .section { margin-bottom: 25px; }
+        .label { font-weight: bold; color: #000000; font-size: 1rem; margin-bottom: 8px; display: block; text-decoration: underline; }
+        .content { font-size: 0.95rem; line-height: 1.6; color: #333333; }
+        .red { color: #ff0000; font-weight: bold; }
+        .bold { font-weight: bold; }
+        .desc-box { background: #fff; border-left: 3px solid #000; padding-left: 10px; margin: 10px 0; font-size: 0.9rem; }
+        footer { text-align: center; font-size: 0.8rem; color: #000000; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">전기설비 핵심 측정기구</div>
+
+        <div class="section">
+            <span class="label">1. 메거 (Megger)</span>
+            <div class="content">가장 중요한 측정기입니다. <span class="red">절연 저항</span>을 측정합니다.</div>
+            <div class="desc-box">
+                - 용도: 전선과 대지 사이의 누전 여부 확인<br>
+                - 단위: [MΩ] (메가옴)
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">2. 어스테스터 (Earth Tester)</span>
+            <div class="content"><span class="red">접지 저항</span>을 측정하는 기구입니다.</div>
+            <div class="desc-box">
+                - 용도: 접지 공사가 잘 되었는지 확인<br>
+                - 특징: 보조 접지극 2개를 땅에 박아 측정
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">3. 훅온메타 (Clamp Meter)</span>
+            <div class="content">전선을 끊지 않고 <span class="red">부하 전류</span>를 측정합니다.</div>
+            <div class="desc-box">
+                - 용도: 운전 중인 회로의 전류 측정<br>
+                - 방식: 집게(Clamp) 모양으로 전선을 감싸서 측정
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="label">4. 테스터 (Multimeter)</span>
+            <div class="content">다양한 항목을 한꺼번에 측정하는 만능 기구입니다.</div>
+            <div class="desc-box">
+                - 측정 항목: 전압, 전류, 저항, <span class="bold">회로 단선 유무(도통 시험)</span>
+            </div>
+        </div>
+
+        <footer>전기설비 기술기준 요약</footer>
+    </div>
+</body>
+</html>
