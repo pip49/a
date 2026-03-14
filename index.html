@@ -496,7 +496,7 @@ async function runTranslate() {
     try {
         const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURI(text)}`);
         const data = await res.json();
-        resultDiv.innerText = "결과: " + data[0][0][0];
+        resultDiv.innerText = data[0][0][0];
     } catch (e) {
         resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
     }
