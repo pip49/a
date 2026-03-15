@@ -207,14 +207,20 @@ body {
     <p class="info" id="statusInfo">모드를 선택하고 학습을 시작하세요.</p>
 
    <div class="proverb-container">
-    <div id="proverbText" class="proverb-text">오늘의 한 마디를 불러오는 중...</div>
+	   <div id="proverbText" class="proverb-text" onclick="copyProverb()" style="cursor: pointer;" title="클릭하면 아래로 복사됩니다">
+    오늘의 한 마디를 불러오는 중...
+</div>
+<div style="text-align: center; margin-bottom: 10px;">
+    <small style="color: #3498db; font-size: 0.75rem; cursor: pointer;" onclick="copyProverb()">👆 위 격언을 클릭하면 입력창에 자동 입력됩니다.</small>
+</div>
  
 <div class="ai-translate-box">
     <textarea id="aiInput" placeholder="푸터의 격언이나 본문을 복사해서 붙여넣으세요."></textarea>
-    <div class="ai-btn-group">
-        <button class="ai-btn" onclick="runTranslate()">번역하기</button>
-        <button class="ai-btn speak" onclick="runSpeak()">🔊 읽어주기</button>
-    </div>
+  <div class="ai-btn-group">
+    <button class="ai-btn" onclick="runTranslate()">번역하기</button>
+    <button class="ai-btn speak" onclick="runSpeak()">🔊 읽어주기</button>
+    <button class="ai-btn" onclick="clearInput()" style="background: #95a5a6;">초기화</button>
+</div>
     <div id="aiResult" class="translation-result" style="display:none;"></div>
 </div>
 
@@ -521,6 +527,22 @@ function runSpeak() {
     window.speechSynthesis.speak(speech);
 }
 
+// 1. 격언 복사 기능
+function copyProverb() {
+    const proverb = document.getElementById('proverbText').innerText;
+    const inputField = document.getElementById('aiInput');
+    inputField.value = proverb;
+    inputField.focus(); // 입력창으로 포커스 이동
+}
+
+// 2. 입력창 및 결과창 초기화 기능
+function clearInput() {
+    document.getElementById('aiInput').value = ""; // 입력창 비우기
+    const resultDiv = document.getElementById('aiResult');
+    resultDiv.innerText = ""; // 결과창 내용 지우기
+    resultDiv.style.display = 'none'; // 결과창 숨기기
+    window.speechSynthesis.cancel(); // 읽어주던 목소리도 중단
+}
 </script>
 </body>
 </html>
