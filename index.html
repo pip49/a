@@ -235,6 +235,11 @@ body {
     <div id="jpResult" class="translation-result" style="display:none; border-left-color: #e67e22; background: #fff5eb;"></div>
 </div>
 
+<div id="jpDetails" class="translation-result" style="display:none; border-left-color: #e67e22; background: #fff;">
+    <div style="font-weight: bold; color: #d35400; margin-bottom: 5px; font-size: 0.8rem;">🔍 단어 상세 분석 (후리가나)</div>
+    <div id="jpDetailList" style="font-size: 0.85rem; line-height: 1.8;"></div>
+</div>
+
 <div class="mini-footer">
     <div class="footer-links">
         <a href="list.html">목차</a>
@@ -612,6 +617,42 @@ function clearJpInput() {
     resultDiv.innerText = "";
     resultDiv.style.display = 'none';
     window.speechSynthesis.cancel();
+}
+
+async function runJpTranslate() {
+    const text = document.getElementById('jpInput').value;
+    const resultDiv = document.getElementById('jpResult');
+    const detailsDiv = document.getElementById('jpDetails');
+    const detailList = document.getElementById('jpDetailList');
+
+    if (!text) { alert("내용을 입력해주세요."); return; }
+
+    resultDiv.style.display = 'block';
+    resultDiv.innerText = "번역 및 분석 중...";
+
+    try {
+        // 1. 번역 수행
+        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=ja&dt=t&q=${encodeURI(text)}`);
+        const data = await res.json();
+        const translatedText = data[0].map(item => item[0]).join("");
+        resultDiv.innerText = translatedText;
+
+        // 2. 단어별 상세 분석 (예시: 간단한 규칙 또는 추가 API 연동)
+        // 실제로는 별도의 형태소 분석 API를 사용하면 정확도가 높아집니다.
+        detailsDiv.style.display = 'block';
+
+        // 시연용 예시 데이터 구성 (실제 구현 시 분석 API 결과값 매칭)
+        detailList.innerHTML = `
+            <strong>문장:</strong> ${translatedText}<br>
+            <hr style="border: 0.5px solid #eee;">
+            • 주요 단어 학습:<br>
+            - <span style="color:#e67e22">電気</span> (でんき, 덴키): 전기<br>
+            - <span style="color:#e67e22">試験</span> (しけん, 시켄): 시험<br>
+            - <span style="color:#e67e22">勉強</span> (べんきょう, 벤쿄): 공부
+        `;
+    } catch (e) {
+        resultDiv.innerText = "분석 실패.";
+    }
 }
 </script>
 </body>
