@@ -8,12 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8f9fa; padding: 20px; }
+        body { font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif; background-color: #f8f9fa; padding: 20px; }
         .main-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .result-box { margin-top: 25px; padding: 20px; border-left: 5px solid #007bff; background: #f0f7ff; display: none; }
-        .btn-voice { background-color: #6c757d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
-        .btn-voice:hover { background-color: #5a6268; }
-        ruby rt { color: #e83e8c; font-size: 0.8em; }
+        .btn-voice { margin-top: 10px; }
+        ruby rt { color: #e83e8c; font-size: 0.9em; font-weight: bold; }
+        #content h3 { color: #007bff; }
     </style>
 </head>
 <body>
@@ -31,51 +31,115 @@
     </ul>
 
     <div class="input-group mb-3">
-        <input type="text" id="userInput" class="form-control" placeholder="단어 또는 문장을 입력하세요">
+        <input type="text" id="userInput" class="form-control" placeholder="단어 또는 문장을 입력하세요" onkeyup="if(window.event.keyCode==13){handleSearch()}">
         <button class="btn btn-primary" onclick="handleSearch()">실행</button>
     </div>
 
     <div id="resultArea" class="result-box">
-        <div id="loading" class="text-center" style="display:none;">검색 중...</div>
-        <div id="content">
-            </div>
+        <div id="loading" class="text-center" style="display:none;">
+            <div class="spinner-border text-primary" role="status"></div>
+        </div>
+        <div id="content"></div>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-	const url = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+    let currentMode = 'en'; // 기본 모드: 영어
+    let currentAudio = null; // 영어 발음 오디오 객체
 
-async function searchWord(word) {
-    try {
-        const response = await fetch(`${url}${word}`);
-        const data = await response.json();
-
-        // 발음기호 가져오기
-        const phonetic = data[0].phonetic || data[0].phonetics[1]?.text;
-        // 첫 번째 뜻과 예문 가져오기
-        const definition = data[0].meanings[0].definitions[0].definition;
-        const example = data[0].meanings[0].definitions[0].example || "예문이 없습니다.";
-
-        // HTML에 결과 출력 (DOM 조작)
-        document.getElementById('result').innerHTML = `
-            <h3>${word}</h3>
-            <p><strong>발음:</strong> ${phonetic}</p>
-            <p><strong>뜻:</strong> ${definition}</p>
-            <p><strong>예문:</strong> <em>${example}</em></p>
-        `;
-    } catch (error) {
-        console.error("단어를 찾을 수 없습니다.");
+    // 모드 전환 함수
+    function changeMode(mode) {
+        currentMode = mode;
+        document.getElementById('resultArea').style.display = 'none';
+        document.getElementById('userInput').value = '';
+        document.getElementById('userInput').placeholder = (mode === 'en') ? "영어 단어를 입력하세요" : "한글 문장을 입력하세요";
     }
-}
-    /* 여기에 제가 이전에 알려드린 JavaScript 코드를 넣으시면 됩니다.
-       1. 변수 선언 (audio 등)
-       2. searchWord(word) - 영어 API 호출 함수
-       3. translateToJapanese(text) - 일본어 번역 함수
-       4. playVoice(text, lang) - TTS 음성 출력 함수
-       5. handleSearch() - 버튼 클릭 시 모드에 따라 위 함수들을 실행하는 로직
-    */
+
+    // 메인 실행 함수
+    async function handleSearch() {
+        const input = document.getElementById('userInput').value.trim();
+        if (!input) return;
+
+        const content = document.getElementById('content');
+        const resultArea = document.getElementById('resultArea');
+        const loading = document.getElementById('loading');
+
+        content.innerHTML = '';
+        resultArea.style.display = 'block';
+        loading.style.display = 'block';
+
+        if (currentMode === 'en') {
+            await searchEnglish(input);
+        } else {
+            await translateJapanese(input);
+        }
+        loading.style.display = 'none';
+    }
+
+    // 1. 영어 사전 기능
+    async function searchEnglish(word) {
+        try {
+            const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+            if (!response.ok) throw new Error();
+            const data = await response.json();
+            const entry = data[0];
+
+            const phonetic = entry.phonetic || (entry.phonetics.find(p => p.text)?.text) || '';
+            const definition = entry.meanings[0].definitions[0].definition;
+            const example = entry.meanings[0].definitions[0].example || "No example available.";
+
+            // 오디오 찾기
+            const audioData = entry.phonetics.find(p => p.audio !== "");
+            const audioUrl = audioData ? audioData.audio : null;
+
+            let audioBtn = audioUrl ? `<button class="btn btn-sm btn-outline-secondary btn-voice" onclick="playAudio('${audioUrl}')">🔊 발음 듣기</button>` : '';
+
+            document.getElementById('content').innerHTML = `
+                <h3>${entry.word}</h3>
+                <p class="text-muted">${phonetic}</p>
+                ${audioBtn}
+                <hr>
+                <p><strong>뜻:</strong> ${definition}</p>
+                <p><strong>예문:</strong> <em>${example}</em></p>
+            `;
+        } catch (e) {
+            document.getElementById('content').innerHTML = "단어를 찾을 수 없습니다.";
+        }
+    }
+
+    // 2. 일본어 번역 기능 (Google Translate 무료 엔드포인트 활용)
+    async function translateJapanese(text) {
+        try {
+            const response = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=ja&dt=t&q=${encodeURI(text)}`);
+            const data = await response.json();
+            const translatedText = data[0][0][0];
+
+            document.getElementById('content').innerHTML = `
+                <h3>🇯🇵 일본어 번역</h3>
+                <p style="font-size: 1.5rem;" id="jpResultText">${translatedText}</p>
+                <button class="btn btn-sm btn-outline-danger btn-voice" onclick="playJapaneseTTS('${translatedText}')">🔊 발음 듣기</button>
+            `;
+        } catch (e) {
+            document.getElementById('content').innerHTML = "번역 중 오류가 발생했습니다.";
+        }
+    }
+
+    // 3. 음성 재생 함수들
+    function playAudio(url) {
+        if (currentAudio) currentAudio.pause();
+        currentAudio = new Audio(url);
+        currentAudio.play();
+    }
+
+    function playJapaneseTTS(text) {
+        // 브라우저 내장 TTS 사용
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+    }
 </script>
 
 </body>
