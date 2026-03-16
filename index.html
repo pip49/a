@@ -7,14 +7,15 @@
     <title>3단계 2인 대화 학습</title>
     <style>
         :root {
-            --bg: #1a1a1a;
-            --card: #2d2d2d;
-            --primary: #8B4513; /* 밤갈색 (SaddleBrown) 계통으로 변경 */
-            --accent: #ffbc64;
-            --text-jp: #ffffff;
-            --text-kr: #a0a0a0;
-            --text-full: #7bed9f;
-        }
+    --bg: #1a1a1a;
+    --card: #2d2d2d;
+    --primary: #4ecdc4;   /* 태그용 민트색 유지 */
+    --btn-bg: #2B1B17;    /* 아주 어두운 밤색 (커피 블랙 느낌) */
+    --accent: #ffbc64;
+    --text-jp: #ffffff;
+    --text-kr: #a0a0a0;
+    --text-full: #7bed9f;
+}  
         body {
             font-family: 'Apple SD Gothic Neo', sans-serif;
             background: var(--bg);
@@ -73,24 +74,27 @@
             background: rgba(255, 188, 100, 0.05); padding: 10px; border-radius: 10px;
         }
 
-    .btn-next {
-    width: 100%;
-    padding: 18px;
-    border: none;
+.btn-next {
+    width: 100%; 
+    padding: 18px; 
+    border: none; 
     border-radius: 15px;
-    background: var(--primary);
-    color: #ffffff; /* 글자색을 흰색으로 변경 */
-    font-size: 1.2rem;
+    background: var(--btn-bg); /* 어두운 밤색 적용 */
+    color: #ffffff; 
+    font-size: 1.2rem; 
     font-weight: bold;
-    cursor: pointer;
+    cursor: pointer; 
     transition: 0.2s;
+    border: 1px solid #3d3d3d; /* 살짝 테두리를 주면 검정 배경과 분리되어 더 예쁩니다 */
 }
 
-/* 버튼에 마우스를 올리거나 눌렀을 때 효과 (더 진한 밤색) */
-.btn-next:active {
-    transform: scale(0.98);
-    background: #5D2E0A;
+/* 버튼을 눌렀을 때 효과 */
+.btn-next:active { 
+    transform: scale(0.98); 
+    background: #1A1210; /* 누를 때는 거의 검정에 가깝게 */
 }
+
+
         .hint { color: #666; font-size: 0.85rem; margin-top: 15px; }
 
         /* 재생 중 표시 */
