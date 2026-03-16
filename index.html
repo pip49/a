@@ -216,15 +216,12 @@ body {
  
 <div class="ai-translate-box">
     <textarea id="aiInput" placeholder="푸터의 격언이나 본문을 복사해서 붙여넣으세요."></textarea>
-
-    <div class="ai-btn-group">
-        <button class="ai-btn" onclick="runTranslate()">한/영 번역</button>
-        <button class="ai-btn" style="background: #e67e22;" onclick="runTranslateJP()">일본어 번역</button>
-        <button class="ai-btn speak" onclick="runSpeak()">🔊 읽어주기</button>
-        <button class="ai-btn" onclick="clearInput()" style="background: #95a5a6;">초기화</button>
-    </div>
+  <div class="ai-btn-group">
+    <button class="ai-btn" onclick="runTranslate()">번역하기</button>
+    <button class="ai-btn speak" onclick="runSpeak()">🔊 읽어주기</button>
+    <button class="ai-btn" onclick="clearInput()" style="background: #95a5a6;">초기화</button>
+</div>
     <div id="aiResult" class="translation-result" style="display:none;"></div>
-    <div id="aiResultJP" class="translation-result" style="display:none; border-left: 3px solid #e67e22; background: #fff5e6; margin-top: 10px;"></div>
 </div>
 
 <div class="mini-footer">
@@ -493,138 +490,69 @@ function showAnswer() {
 
 window.onload = nextQuiz;
 
-// 격언 클릭 시 입력창으로 복사하는 함수
-function copyProverb() {
-    const proverb = document.getElementById('proverbText').innerText;
-    const inputField = document.getElementById('aiInput');
-
-    // 격언 내용을 입력창에 넣고 포커스를 줍니다.
-    inputField.value = proverb;
-    inputField.focus();
-
-}
-
-// 한/영 번역 실행 함수 (누락된 부분 추가)
 async function runTranslate() {
     const text = document.getElementById('aiInput').value;
     const resultDiv = document.getElementById('aiResult');
-    const resultDivJP = document.getElementById('aiResultJP'); // 일본어 결과창
 
     if (!text) { alert("내용을 입력해주세요."); return; }
 
-    // 일본어 번역창은 닫고 한/영 번역창을 활성화
-    resultDivJP.style.display = 'none';
+    const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
+    const targetLang = isKorean ? 'en' : 'ko';
+
     resultDiv.style.display = 'block';
     resultDiv.innerText = "번역 중...";
 
     try {
-        // 감지된 언어에 따라 한국어면 영어로, 그 외는 한국어로 번역
-        const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
-        const targetLang = isKorean ? 'en' : 'ko';
-
         const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURI(text)}`);
         const data = await res.json();
 
+        // 중요: 장문의 경우 data[0]의 각 배열 조각을 모두 합쳐야 전체 문장이 나옵니다.
         const translatedFullText = data[0].map(item => item[0]).join("");
+
         resultDiv.innerText = translatedFullText;
     } catch (e) {
         resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
     }
 }
 
-// 1. 일본어 번역 함수 추가 (핵심 수정 사항)
-async function runTranslateJP() {
-    const text = document.getElementById('aiInput').value;
-    const resultDivJP = document.getElementById('aiResultJP');
-    const resultDivCommon = document.getElementById('aiResult'); // 한/영 결과창
-
-    if (!text) { alert("내용을 입력해주세요."); return; }
-
-    // 기존 한/영 번역창은 닫고 일본어 번역창을 활성화
-    resultDivCommon.style.display = 'none';
-    resultDivJP.style.display = 'block';
-    resultDivJP.innerText = "일본어로 번역 중...";
-
-    try {
-        // tl=ja 설정을 통해 일본어로 번역
-        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ja&dt=t&q=${encodeURI(text)}`);
-        const data = await res.json();
-
-        // 번역된 텍스트 합치기
-        const translatedFullText = data[0].map(item => item[0]).join("");
-        resultDivJP.innerText = translatedFullText;
-    } catch (e) {
-        resultDivJP.innerText = "일본어 번역 실패. 인터넷 연결을 확인하세요.";
-    }
-}
-
 function runSpeak() {
-    const resultDiv = document.getElementById('aiResult');
-    const resultDivJP = document.getElementById('aiResultJP');
-    const inputField = document.getElementById('aiInput');
+    // 1. 번역 결과창(aiResult)에 텍스트가 있으면 그걸 가져오고, 없으면 입력창(aiInput) 텍스트를 가져옵니다.
+    const resultText = document.getElementById('aiResult').innerText;
+    const inputText = document.getElementById('aiInput').value;
+    
+    // 번역 결과가 "번역 중..."이 아닐 때만 결과창 텍스트를 우선 사용합니다.
+    const textToSpeak = (resultText && resultText !== "번역 중...") ? resultText : inputText;
 
-    let textToSpeak = "";
-    let lang = 'ko-KR';
+    if (!textToSpeak) return;
 
-    // 1. 어떤 창이 열려있는지 확인하여 텍스트와 언어 설정
-    if (resultDivJP.style.display !== 'none' && resultDivJP.innerText.trim() !== "" && resultDivJP.innerText !== "일본어로 번역 중...") {
-        textToSpeak = resultDivJP.innerText;
-        lang = 'ja-JP';
-    } else if (resultDiv.style.display !== 'none' && resultDiv.innerText.trim() !== "" && resultDiv.innerText !== "번역 중...") {
-        textToSpeak = resultDiv.innerText;
-        lang = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(textToSpeak) ? 'ko-KR' : 'en-US';
-    } else {
-        textToSpeak = inputField.value;
-        lang = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(textToSpeak) ? 'ko-KR' : 'en-US';
-    }
-
-    if (!textToSpeak) {
-        alert("읽어줄 내용이 없습니다.");
-        return;
-    }
-
-    // 2. 음성 합성 준비
-    window.speechSynthesis.cancel(); // 기존 재생 중단
+    window.speechSynthesis.cancel(); // 기존 소리 멈춤
     const speech = new SpeechSynthesisUtterance(textToSpeak);
 
-    // 3. 사용 가능한 목소리 목록 가져오기
-    let voices = window.speechSynthesis.getVoices();
+    // 읽어줄 텍스트의 언어 감지 (한글 포함 여부)
+    const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(textToSpeak);
+    speech.lang = isKorean ? 'ko-KR' : 'en-US';
+    speech.rate = 1.0;
 
-    // 4. 목소리 선택 로직 (일본어/한국어/영어 대응)
-    const setVoice = () => {
-        const voices = window.speechSynthesis.getVoices();
-        const selectedVoice = voices.find(v => v.lang.includes(lang) && (v.name.includes("Google") || v.name.includes("Natural")))
-                           || voices.find(v => v.lang.includes(lang));
-
-        if (selectedVoice) {
-            speech.voice = selectedVoice;
-        }
-        speech.lang = lang;
-        speech.rate = 0.9; // 자연스러운 속도
-        speech.pitch = 1.0;
-        window.speechSynthesis.speak(speech);
-    };
-
-    // 음성 목록이 아직 로드되지 않았을 경우를 대비
-    if (voices.length === 0) {
-        window.speechSynthesis.onvoiceschanged = setVoice;
-    } else {
-        setVoice();
-    }
+    window.speechSynthesis.speak(speech);
 }
 
-// 3. 초기화 함수 (일본어 창도 함께 닫히도록 설정)
+// 1. 격언 복사 기능
+function copyProverb() {
+    const proverb = document.getElementById('proverbText').innerText;
+    const inputField = document.getElementById('aiInput');
+    inputField.value = proverb;
+    inputField.focus(); // 입력창으로 포커스 이동
+}
+
+// 2. 입력창 및 결과창 초기화 기능
 function clearInput() {
-    document.getElementById('aiInput').value = "";
-    document.getElementById('aiResult').innerText = "";
-    document.getElementById('aiResult').style.display = 'none';
-
-    const resultDivJP = document.getElementById('aiResultJP');
-    resultDivJP.innerText = "";
-    resultDivJP.style.display = 'none';
-
-    window.speechSynthesis.cancel();
+    document.getElementById('aiInput').value = ""; // 입력창 비우기
+    const resultDiv = document.getElementById('aiResult');
+    resultDiv.innerText = ""; // 결과창 내용 지우기
+    resultDiv.style.display = 'none'; // 결과창 숨기기
+    window.speechSynthesis.cancel(); // 읽어주던 목소리도 중단
 }
+
 </script>
 </body>
 </html>
