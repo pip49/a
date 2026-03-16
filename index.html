@@ -86,6 +86,7 @@
         <div class="content-box kr-box" id="kr-text"></div>
         <div class="content-box full-box" id="jp-full"></div>
         <div class="word-box" id="word-text"></div>
+	<audio id="audio-player" controls style="width: 100%; margin-top: 15px; background: #f1f3f4; border-radius: 8px;"></audio>
     </div>
     <button class="btn-next" onclick="nextSentence()">다른 상황 보기</button>
     <p class="hint">클릭: 해석 → 전체 문장 & 음성 듣기 → 초기화</p>
@@ -226,6 +227,14 @@ function toggleStep() {
             });
             document.getElementById('jp-full').innerHTML = fullHtml;
             document.getElementById('word-text').innerText = data.words;
+		// MP3 파일 연결 (데이터에 audio 경로가 있으면 연결)
+const player = document.getElementById('audio-player');
+if (data.audio) {
+    player.src = data.audio;
+    player.style.display = "block"; // 파일이 있으면 보임
+} else {
+    player.style.display = "none";  // 파일이 없으면 안 보임
+}
         }, 150);
     }
 
