@@ -88,23 +88,51 @@
 </div>
 
 <script>
-    const studyData = [
-        {
-            tag: "식당에서 주문하기",
-            jp: "<span class='speaker'>A:</span> <ruby>注文<rt>ちゅうもん</rt></ruby>、いいですか？<br>" +
-                "<span class='speaker'>B:</span> はい、<ruby>何<rt>なに</rt></ruby>にしますか？",
-            kr: "A: 주문해도 될까요?<br>B: 네, 무엇으로 하시겠어요?",
-            words: "• 注文(ちゅうもん): 주문 • 何(なに): 무엇"
-        },
-        {
-            tag: "길 묻기",
-            jp: "<span class='speaker'>A:</span> <ruby>駅<rt>えき</rt></ruby>은 어디인가요?<br>" +
-                "<span class='speaker'>B:</span> <ruby>直進<rt>ちょくしん</rt></ruby>하면 됩니다.",
-            kr: "A: 역은 어디인가요?<br>B: 직진하면 됩니다.",
-            words: "• 駅(えき): 역 • 直進(ちょくしん): 직진"
-        }
-        // 여기에 제가 만들어 드리는 데이터를 붙여넣으시면 됩니다!
-    ];
+
+
+
+const studyData = [
+    {
+        tag: "길 찾기 - 지하철역",
+        jp: "<span class='speaker'>A:</span> すみません、<ruby>駅<rt>えき</rt></ruby>은 어디인가요?<br>" +
+            "<span class='speaker'>B:</span> 저기 <ruby>信号<rt>しんごう</rt></ruby>를 <ruby>右<rt>みぎ</rt></ruby>로 꺾으면 바로 있어요.<br>" +
+            "<span class='speaker'>A:</span> 아, 저기 말씀이시죠? <ruby>助<rt>たす</rt></ruby>かりました！",
+        kr: "A: 죄송합니다, 역은 어디인가요?<br>B: 저기 신호를 오른쪽으로 꺾으면 바로 있어요.<br>A: 아, 저기 말씀이시죠? 큰 도움이 됐습니다!",
+        words: "• 駅(えき): 역 • 信号(しんごう): 신호 • 右(みぎ): 오른쪽 • 助かる(たすかる): 도움이 되다"
+    },
+    {
+        tag: "길 찾기 - 화장실",
+        jp: "<span class='speaker'>A:</span> 이 <ruby>近<rt>ちか</rt></ruby>くに <ruby>お手洗<rt>おてあら</rt></ruby>い 있습니다?<br>" +
+            "<span class='speaker'>B:</span> 네, 저기 <ruby>角<rt>かど</rt></ruby>에 있는 편의점 안에 있어요.<br>" +
+            "<span class='speaker'>A:</span> <ruby>助<rt>たす</rt></ruby>かりました。ありがとうございます！",
+        kr: "A: 이 근처에 화장실이 있나요?<br>B: 네, 저기 모퉁이에 있는 편의점 안에 있어요.<br>A: 살았네요(다행이네요). 감사합니다!",
+        words: "• 近く(ちかく): 근처 • お手洗い(おてあらい): 화장실 • 角(かど): 모퉁이"
+    },
+    {
+        tag: "길 찾기 - 도보 거리",
+        jp: "<span class='speaker'>A:</span> <ruby>歩<rt>ある</rt></ruby>いて <ruby>行<rt>い</rt></ruby>ける <ruby>距離<rt>きょり</rt></ruby>인가요?<br>" +
+            "<span class='speaker'>B:</span> 아뇨, <ruby>歩<rt>ある</rt></ruby>くと 20<ruby>分<rt>ぷん</rt></ruby> 정도 <ruby>掛<rt>か</rt></ruby>かりますよ.<br>" +
+            "<span class='speaker'>A:</span> 그렇군요. <ruby>역시<rt>やはり</rt></ruby> 택시를 타야겠네요.",
+        kr: "A: 걸어서 갈 수 있는 거리인가요?<br>B: 아니요, 걸으면 20분 정도 걸려요.<br>A: 그렇군요. 역시 택시를 타야겠네요.",
+        words: "• 歩く(あるく): 걷다 • 距離(きょり): 거리 • 掛かる(かかる): (시간 등이) 걸리다"
+    },
+    {
+        tag: "길 찾기 - 길을 잃었을 때",
+        jp: "<span class='speaker'>A:</span> <ruby>道<rt>みち</rt></ruby>를 <ruby>迷<rt>まよ</rt></ruby>ってしまいました. 여기가 어디죠?<br>" +
+            "<span class='speaker'>B:</span> 여기는 <ruby>新宿<rt>しんじゅく</rt></ruby> <ruby>中央<rt>ちゅうおう</rt></ruby> <ruby>公園<rt>こうえん</rt></ruby> 앞이에요.<br>" +
+            "<span class='speaker'>A:</span> 아! <ruby>反対<rt>はんたい</rt></ruby> <ruby>方向<rt>ほうこう</rt></ruby>이었네요. 가르쳐 주셔서 감사합니다.",
+        kr: "A: 길을 잃어버렸습니다. 여기가 어디죠?<br>B: 여기는 신주쿠 중앙 공원 앞이에요.<br>A: 아! 반대 방향이었네요. 알려주셔서 감사합니다.",
+        words: "• 道(み치): 길 • 迷う(まよう): 헤매다 • 反対(はんたい): 반대"
+    },
+    {
+        tag: "길 찾기 - 버스 정류장",
+        jp: "<span class='speaker'>A:</span> <ruby>渋谷<rt>しぶや</rt></ruby> <ruby>行<rt>い</rt></ruby>き 버스는 어디서 타나요?<br>" +
+            "<span class='speaker'>B:</span> 저기 <ruby>銀行<rt>ぎんこう</rt></ruby> <ruby>前<rt>まえ</rt></ruby>에 있는 정류장이에요.<br>" +
+            "<span class='speaker'>A:</span> <ruby>銀行<rt>ぎんこう</rt></ruby> 앞이군요. <ruby>教<rt>おし</rt></ruby>えてくれて 감사합니다.",
+        kr: "A: 시부야행 버스는 어디서 타나요?<br>B: 저기 은행 앞에 있는 정류장이에요.<br>A: 은행 앞이군요. 알려주셔서 감사합니다.",
+        words: "• 行き(いき/ゆき): ~행 • 銀行(ぎんこう): 은행 • 教える(おしえる): 가르쳐주다(알려주다)"
+    }
+];
 
     let lastIndex = -1;
 
