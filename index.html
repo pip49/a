@@ -713,6 +713,33 @@ window.onclick = function(event) {
     }
 }
 
+function runJpSpeak() {
+    // 1. 번역 결과창(jpResult)에서 텍스트를 가져오되, HTML 태그(span 등)를 제외한 순수 텍스트만 추출합니다.
+    const resultDiv = document.getElementById('jpResult');
+    const resultText = resultDiv.innerText || resultDiv.textContent;
+    const inputText = document.getElementById('jpInput').value;
+
+    // 번역 결과가 있으면 결과를, 없으면 입력창 내용을 읽음
+    const textToSpeak = (resultText && resultText !== "번역 중...") ? resultText : inputText;
+
+    if (!textToSpeak) {
+        alert("읽을 내용이 없습니다.");
+        return;
+    }
+
+    // 기존에 재생 중인 음성이 있다면 정지
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(textToSpeak);
+
+    // 일본어 음성 설정
+    speech.lang = 'ja-JP';
+    speech.rate = 1.0; // 속도 (0.1 ~ 10)
+    speech.pitch = 1.0; // 음높이
+
+    // 음성 재생
+    window.speechSynthesis.speak(speech);
+}
 </script>
 
 <div id="wordModal" class="modal">
