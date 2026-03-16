@@ -235,30 +235,6 @@ body {
     <div id="jpResult" class="translation-result" style="display:none; border-left-color: #e67e22; background: #fff5eb;"></div>
 </div>
 
-
-<div class="ai-translate-box" style="border-color: #e74c3c; margin-top: 10px;">
-    <div style="font-size: 0.8rem; font-weight: bold; color: #e74c3c; margin-bottom: 5px;">🇪🇸 스페인어 학습 도구</div>
-    <textarea id="esInput" placeholder="번역할 한글 문장을 입력하세요 (Spanish)."></textarea>
-    <div class="ai-btn-group">
-        <button class="ai-btn" onclick="runEsTranslate()" style="background: #e74c3c;">스페인어 번역</button>
-        <button class="ai-btn speak" onclick="runEsSpeak()" style="background: #c0392b;">🔊 읽기 (ES)</button>
-        <button class="ai-btn" onclick="clearEsInput()" style="background: #95a5a6;">초기화</button>
-    </div>
-    <div id="esResult" class="translation-result" style="display:none; border-left-color: #e74c3c; background: #fdf2f2;"></div>
-</div>
-
-
-<div class="ai-translate-box" style="border-color: #f1c40f; margin-top: 10px;">
-    <div style="font-size: 0.8rem; font-weight: bold; color: #f39c12; margin-bottom: 5px;">🇨🇳 중국어 학습 도구</div>
-    <textarea id="zhInput" placeholder="번역할 한글 문장을 입력하세요 (Chinese)."></textarea>
-    <div class="ai-btn-group">
-        <button class="ai-btn" onclick="runZhTranslate()" style="background: #f1c40f; color: #000;">중국어 번역</button>
-        <button class="ai-btn speak" onclick="runZhSpeak()" style="background: #f39c12;">🔊 읽기 (ZH)</button>
-        <button class="ai-btn" onclick="clearZhInput()" style="background: #95a5a6;">초기화</button>
-    </div>
-    <div id="zhResult" class="translation-result" style="display:none; border-left-color: #f1c40f; background: #fffdf0;"></div>
-</div>
-
 <div class="mini-footer">
     <div class="footer-links">
         <a href="list.html">목차</a>
@@ -600,7 +576,7 @@ async function runJpTranslate() {
     resultDiv.innerText = "번역 중...";
 
     try {
-        // [중요] 기존에 tl=en으로 되어있던 부분을 tl=ja로 수정했습니다.
+        // 구글 번역 API 활용 (한 -> 일)
         const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=ja&dt=t&q=${encodeURI(text)}`);
         const data = await res.json();
         const translatedText = data[0].map(item => item[0]).join("");
@@ -612,23 +588,19 @@ async function runJpTranslate() {
 }
 
 function runJpSpeak() {
-    const resultDiv = document.getElementById('jpResult');
-    const resultText = resultDiv.innerText;
+    const resultText = document.getElementById('jpResult').innerText;
     const inputText = document.getElementById('jpInput').value;
-
-    // 결과창에 텍스트가 있으면 그걸 읽고, 없으면 입력창 내용을 읽음
+    
+    // 번역 결과가 있으면 결과를, 없으면 입력창 내용을 읽음
     const textToSpeak = (resultText && resultText !== "번역 중...") ? resultText : inputText;
 
-    if (!textToSpeak) {
-        alert("읽을 내용이 없습니다.");
-        return;
-    }
+    if (!textToSpeak) return;
 
-    window.speechSynthesis.cancel(); // 다른 음성 중단
+    window.speechSynthesis.cancel(); 
     const speech = new SpeechSynthesisUtterance(textToSpeak);
-
-    // [중요] 언어 설정을 일본어(ja-JP)로 확실히 고정합니다.
-    speech.lang = 'ja-JP';
+    
+    // 일본어 설정
+    speech.lang = 'ja-JP'; 
     speech.rate = 1.0;
 
     window.speechSynthesis.speak(speech);
@@ -637,109 +609,6 @@ function runJpSpeak() {
 function clearJpInput() {
     document.getElementById('jpInput').value = "";
     const resultDiv = document.getElementById('jpResult');
-    resultDiv.innerText = "";
-    resultDiv.style.display = 'none';
-    window.speechSynthesis.cancel();
-}
-
-
-// --- 스페인어 번역 및 읽기 기능 함수 ---
-
-async function runEsTranslate() {
-    const text = document.getElementById('esInput').value;
-    const resultDiv = document.getElementById('esResult');
-
-    if (!text) { alert("내용을 입력해주세요."); return; }
-
-    resultDiv.style.display = 'block';
-    resultDiv.innerText = "번역 중...";
-
-    try {
-        // 구글 번역 API 활용 (한 -> 스페인어 tl=es)
-        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=es&dt=t&q=${encodeURI(text)}`);
-        const data = await res.json();
-        const translatedText = data[0].map(item => item[0]).join("");
-
-        resultDiv.innerText = translatedText;
-    } catch (e) {
-        resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
-    }
-}
-
-function runEsSpeak() {
-    const resultDiv = document.getElementById('esResult');
-    const resultText = resultDiv.innerText;
-    const inputText = document.getElementById('esInput').value;
-
-    // 번역 결과가 있으면 결과를, 없으면 입력창 내용을 읽음
-    const textToSpeak = (resultText && resultText !== "번역 중...") ? resultText : inputText;
-
-    if (!textToSpeak) return;
-
-    window.speechSynthesis.cancel();
-    const speech = new SpeechSynthesisUtterance(textToSpeak);
-
-    // 스페인어 설정 (es-ES)
-    speech.lang = 'es-ES';
-    speech.rate = 1.0;
-
-    window.speechSynthesis.speak(speech);
-}
-
-function clearEsInput() {
-    document.getElementById('esInput').value = "";
-    const resultDiv = document.getElementById('esResult');
-    resultDiv.innerText = "";
-    resultDiv.style.display = 'none';
-    window.speechSynthesis.cancel();
-}
-
-
-// --- 중국어 번역 및 읽기 기능 함수 ---
-
-async function runZhTranslate() {
-    const text = document.getElementById('zhInput').value;
-    const resultDiv = document.getElementById('zhResult');
-
-    if (!text) { alert("내용을 입력해주세요."); return; }
-
-    resultDiv.style.display = 'block';
-    resultDiv.innerText = "번역 중...";
-
-    try {
-        // 구글 번역 API (한 -> 중국어 간체 tl=zh-CN)
-        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=zh-CN&dt=t&q=${encodeURI(text)}`);
-        const data = await res.json();
-        const translatedText = data[0].map(item => item[0]).join("");
-
-        resultDiv.innerText = translatedText;
-    } catch (e) {
-        resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
-    }
-}
-
-function runZhSpeak() {
-    const resultDiv = document.getElementById('zhResult');
-    const resultText = resultDiv.innerText;
-    const inputText = document.getElementById('zhInput').value;
-
-    const textToSpeak = (resultText && resultText !== "번역 중...") ? resultText : inputText;
-
-    if (!textToSpeak) return;
-
-    window.speechSynthesis.cancel();
-    const speech = new SpeechSynthesisUtterance(textToSpeak);
-    
-    // 중국어 설정 (zh-CN)
-    speech.lang = 'zh-CN'; 
-    speech.rate = 0.9; // 성조를 잘 듣기 위해 약간 천천히 설정
-
-    window.speechSynthesis.speak(speech);
-}
-
-function clearZhInput() {
-    document.getElementById('zhInput').value = "";
-    const resultDiv = document.getElementById('zhResult');
     resultDiv.innerText = "";
     resultDiv.style.display = 'none';
     window.speechSynthesis.cancel();
