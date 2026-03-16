@@ -170,45 +170,6 @@ body {
     word-break: break-word;/* 긴 단어도 자동 줄바꿈 */
 }
 
-
-/* 팝업(모달) 스타일 */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    left: 0; top: 0; 
-    width: 100%; height: 100%; 
-    background-color: rgba(0,0,0,0.5); 
-}
-.modal-content {
-    background-color: #fff;
-    margin: 20% auto;
-    padding: 20px;
-    border-radius: 12px;
-    width: 80%;
-    max-width: 300px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-.modal-header { font-weight: bold; font-size: 1.2rem; color: #e67e22; margin-bottom: 10px; }
-.modal-body { font-size: 1rem; line-height: 1.6; color: #34495e; }
-.close-modal {
-    margin-top: 15px;
-    padding: 8px 20px;
-    background: #e67e22;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-/* 클릭 가능한 단어 스타일 */
-.clickable-word {
-    color: #e67e22;
-    text-decoration: underline;
-    cursor: pointer;
-    font-weight: bold;
-}
-
     </style>
 </head>
 <body>
@@ -272,11 +233,6 @@ body {
         <button class="ai-btn" onclick="clearJpInput()" style="background: #95a5a6;">초기화</button>
     </div>
     <div id="jpResult" class="translation-result" style="display:none; border-left-color: #e67e22; background: #fff5eb;"></div>
-</div>
-
-<div id="jpDetails" class="translation-result" style="display:none; border-left-color: #e67e22; background: #fff;">
-    <div style="font-weight: bold; color: #d35400; margin-bottom: 5px; font-size: 0.8rem;">🔍 단어 상세 분석 (후리가나)</div>
-    <div id="jpDetailList" style="font-size: 0.85rem; line-height: 1.8;"></div>
 </div>
 
 <div class="mini-footer">
@@ -609,78 +565,6 @@ function clearInput() {
 }
 
 // --- 일본어 번역 및 읽기 기능 함수 ---
-// --- 일본어 번역, 팝업 및 읽기 기능 통합 관리 ---
-
-async function runJpTranslate() {
-    const text = document.getElementById('jpInput').value;
-    const resultDiv = document.getElementById('jpResult');
-
-    if (!text) { alert("내용을 입력해주세요."); return; }
-
-    resultDiv.style.display = 'block';
-    resultDiv.innerText = "번역 중...";
-
-    try {
-        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=ja&dt=t&q=${encodeURI(text)}`);
-        const data = await res.json();
-        let translatedText = data[0].map(item => item[0]).join("");
-
-        // 단어장 (공부하고 싶은 단어를 여기에 추가하세요)
-        const wordMap = {
-            "電気": { furigana: "でんき", mean: "전기" },
-            "試験": { furigana: "しけん", mean: "시험" },
-            "勉強": { furigana: "べんきょう", mean: "공부" },
-            "楽しい": { furigana: "たのしい", mean: "즐겁다" }
-        };
-
-        // 단어 하이라이트 및 팝업 연결
-        Object.keys(wordMap).forEach(word => {
-            const regex = new RegExp(word, "g");
-            translatedText = translatedText.replace(regex, `<span class="clickable-word" onclick="showWordDetail('${word}', '${wordMap[word].furigana}', '${wordMap[word].mean}')">${word}</span>`);
-        });
-
-        resultDiv.innerHTML = translatedText;
-    } catch (e) {
-        resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
-    }
-}
-
-// [핵심!] 누락되었던 읽기 함수
-function runJpSpeak() {
-    const resultDiv = document.getElementById('jpResult');
-    // 태그를 제외한 순수 텍스트만 추출
-    const textToSpeak = resultDiv.innerText || resultDiv.textContent;
-
-    if (!textToSpeak || textToSpeak === "번역 중...") {
-        alert("번역을 먼저 완료한 후 버튼을 눌러주세요.");
-        return;
-    }
-
-    window.speechSynthesis.cancel(); // 기존 재생 중지
-    const speech = new SpeechSynthesisUtterance(textToSpeak);
-    speech.lang = 'ja-JP'; // 일본어 설정
-    speech.rate = 0.9;     // 약간 천천히 읽기
-    window.speechSynthesis.speak(speech);
-}
-
-// 팝업 관련 함수
-function showWordDetail(word, furi, mean) {
-    document.getElementById('modalHeader').innerText = word;
-    document.getElementById('modalBody').innerHTML = `읽기: [${furi}]<br>뜻: ${mean}`;
-    document.getElementById('wordModal').style.display = 'block';
-}
-
-function closeJpModal() {
-    document.getElementById('wordModal').style.display = 'none';
-}
-
-function clearJpInput() {
-    document.getElementById('jpInput').value = "";
-    const resultDiv = document.getElementById('jpResult');
-    resultDiv.innerText = "";
-    resultDiv.style.display = 'none';
-    window.speechSynthesis.cancel();
-}
 
 async function runJpTranslate() {
     const text = document.getElementById('jpInput').value;
@@ -706,17 +590,17 @@ async function runJpTranslate() {
 function runJpSpeak() {
     const resultText = document.getElementById('jpResult').innerText;
     const inputText = document.getElementById('jpInput').value;
-
+    
     // 번역 결과가 있으면 결과를, 없으면 입력창 내용을 읽음
     const textToSpeak = (resultText && resultText !== "번역 중...") ? resultText : inputText;
 
     if (!textToSpeak) return;
 
-    window.speechSynthesis.cancel();
+    window.speechSynthesis.cancel(); 
     const speech = new SpeechSynthesisUtterance(textToSpeak);
-
+    
     // 일본어 설정
-    speech.lang = 'ja-JP';
+    speech.lang = 'ja-JP'; 
     speech.rate = 1.0;
 
     window.speechSynthesis.speak(speech);
@@ -730,62 +614,6 @@ function clearJpInput() {
     window.speechSynthesis.cancel();
 }
 
-// 팝업 띄우기 함수
-function showWordDetail(word, furi, mean) {
-    document.getElementById('modalHeader').innerText = word;
-    document.getElementById('modalBody').innerHTML = `읽기: [${furi}]<br>뜻: ${mean}`;
-    document.getElementById('wordModal').style.display = 'block';
-}
-
-// 팝업 닫기 함수
-function closeJpModal() {
-    document.getElementById('wordModal').style.display = 'none';
-}
-
-// 배경 클릭 시 팝업 닫기
-window.onclick = function(event) {
-    const modal = document.getElementById('wordModal');
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-function runJpSpeak() {
-    // 1. 번역 결과창(jpResult)에서 텍스트를 가져오되, HTML 태그(span 등)를 제외한 순수 텍스트만 추출합니다.
-    const resultDiv = document.getElementById('jpResult');
-    const resultText = resultDiv.innerText || resultDiv.textContent;
-    const inputText = document.getElementById('jpInput').value;
-
-    // 번역 결과가 있으면 결과를, 없으면 입력창 내용을 읽음
-    const textToSpeak = (resultText && resultText !== "번역 중...") ? resultText : inputText;
-
-    if (!textToSpeak) {
-        alert("읽을 내용이 없습니다.");
-        return;
-    }
-
-    // 기존에 재생 중인 음성이 있다면 정지
-    window.speechSynthesis.cancel();
-
-    const speech = new SpeechSynthesisUtterance(textToSpeak);
-
-    // 일본어 음성 설정
-    speech.lang = 'ja-JP';
-    speech.rate = 1.0; // 속도 (0.1 ~ 10)
-    speech.pitch = 1.0; // 음높이
-
-    // 음성 재생
-    window.speechSynthesis.speak(speech);
-}
 </script>
-
-<div id="wordModal" class="modal">
-    <div class="modal-content">
-        <div id="modalHeader" class="modal-header">단어 학습</div>
-        <div id="modalBody" class="modal-body">상세 내용</div>
-        <button class="close-modal" onclick="closeJpModal()">닫기</button>
-    </div>
-</div>
-
 </body>
 </html>
