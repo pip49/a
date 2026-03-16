@@ -558,28 +558,23 @@ async function runTranslateJP() {
     }
 }
 
-// 읽어주기 함수 (일본어 완벽 대응 버전)
 function runSpeak() {
-    const resultText = document.getElementById('aiResult').innerText;
-    const resultTextJP = document.getElementById('aiResultJP').innerText; // 일본어 결과창 가져오기
-    const inputText = document.getElementById('aiInput').value;
+    const resultDiv = document.getElementById('aiResult');
+    const resultDivJP = document.getElementById('aiResultJP');
+    const inputField = document.getElementById('aiInput');
 
     let textToSpeak = "";
     let lang = 'ko-KR';
 
-    // 1. 일본어 결과창이 화면에 보이고 있고, 내용이 비어있지 않다면 일본어로 읽기
-    if (document.getElementById('aiResultJP').style.display !== 'none' && resultTextJP && resultTextJP !== "일본어로 번역 중...") {
-        textToSpeak = resultTextJP;
+    // 1. 어떤 창이 열려있는지 확인하여 텍스트와 언어 설정
+    if (resultDivJP.style.display !== 'none' && resultDivJP.innerText.trim() !== "" && resultDivJP.innerText !== "일본어로 번역 중...") {
+        textToSpeak = resultDivJP.innerText;
         lang = 'ja-JP';
-    }
-    // 2. 한/영 결과창이 보이고 있다면 해당 텍스트 읽기
-    else if (document.getElementById('aiResult').style.display !== 'none' && resultText && resultText !== "번역 중...") {
-        textToSpeak = resultText;
+    } else if (resultDiv.style.display !== 'none' && resultDiv.innerText.trim() !== "" && resultDiv.innerText !== "번역 중...") {
+        textToSpeak = resultDiv.innerText;
         lang = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(textToSpeak) ? 'ko-KR' : 'en-US';
-    }
-    // 3. 결과창이 모두 닫혀있다면 입력창의 텍스트를 읽기
-    else {
-        textToSpeak = inputText;
+    } else {
+        textToSpeak = inputField.value;
         lang = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(textToSpeak) ? 'ko-KR' : 'en-US';
     }
 
@@ -588,12 +583,34 @@ function runSpeak() {
         return;
     }
 
-    // 기존 음성 중단 후 재생
-    window.speechSynthesis.cancel();
+    // 2. 음성 합성 준비
+    window.speechSynthesis.cancel(); // 기존 재생 중단
     const speech = new SpeechSynthesisUtterance(textToSpeak);
-    speech.lang = lang;
-    speech.rate = 1.0;
-    window.speechSynthesis.speak(speech);
+
+    // 3. 사용 가능한 목소리 목록 가져오기
+    let voices = window.speechSynthesis.getVoices();
+
+    // 4. 목소리 선택 로직 (일본어/한국어/영어 대응)
+    const setVoice = () => {
+        const voices = window.speechSynthesis.getVoices();
+        const selectedVoice = voices.find(v => v.lang.includes(lang) && (v.name.includes("Google") || v.name.includes("Natural")))
+                           || voices.find(v => v.lang.includes(lang));
+
+        if (selectedVoice) {
+            speech.voice = selectedVoice;
+        }
+        speech.lang = lang;
+        speech.rate = 0.9; // 자연스러운 속도
+        speech.pitch = 1.0;
+        window.speechSynthesis.speak(speech);
+    };
+
+    // 음성 목록이 아직 로드되지 않았을 경우를 대비
+    if (voices.length === 0) {
+        window.speechSynthesis.onvoiceschanged = setVoice;
+    } else {
+        setVoice();
+    }
 }
 
 // 3. 초기화 함수 (일본어 창도 함께 닫히도록 설정)
