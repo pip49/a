@@ -224,6 +224,17 @@ body {
     <div id="aiResult" class="translation-result" style="display:none;"></div>
 </div>
 
+<div class="ai-translate-box" style="border-color: #e67e22; margin-top: 10px;">
+    <div style="font-size: 0.8rem; font-weight: bold; color: #e67e22; margin-bottom: 5px;">🇯🇵 일본어 학습 도구</div>
+    <textarea id="jpInput" placeholder="번역할 한글 문장을 입력하세요."></textarea>
+    <div class="ai-btn-group">
+        <button class="ai-btn" onclick="runJpTranslate()" style="background: #e67e22;">일본어 번역</button>
+        <button class="ai-btn speak" onclick="runJpSpeak()" style="background: #d35400;">🔊 읽기 (JP)</button>
+        <button class="ai-btn" onclick="clearJpInput()" style="background: #95a5a6;">초기화</button>
+    </div>
+    <div id="jpResult" class="translation-result" style="display:none; border-left-color: #e67e22; background: #fff5eb;"></div>
+</div>
+
 <div class="mini-footer">
     <div class="footer-links">
         <a href="list.html">목차</a>
@@ -551,6 +562,56 @@ function clearInput() {
     resultDiv.innerText = ""; // 결과창 내용 지우기
     resultDiv.style.display = 'none'; // 결과창 숨기기
     window.speechSynthesis.cancel(); // 읽어주던 목소리도 중단
+}
+
+// --- 일본어 번역 및 읽기 기능 함수 ---
+
+async function runJpTranslate() {
+    const text = document.getElementById('jpInput').value;
+    const resultDiv = document.getElementById('jpResult');
+
+    if (!text) { alert("내용을 입력해주세요."); return; }
+
+    resultDiv.style.display = 'block';
+    resultDiv.innerText = "번역 중...";
+
+    try {
+        // 구글 번역 API 활용 (한 -> 일)
+        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=ja&dt=t&q=${encodeURI(text)}`);
+        const data = await res.json();
+        const translatedText = data[0].map(item => item[0]).join("");
+
+        resultDiv.innerText = translatedText;
+    } catch (e) {
+        resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
+    }
+}
+
+function runJpSpeak() {
+    const resultText = document.getElementById('jpResult').innerText;
+    const inputText = document.getElementById('jpInput').value;
+    
+    // 번역 결과가 있으면 결과를, 없으면 입력창 내용을 읽음
+    const textToSpeak = (resultText && resultText !== "번역 중...") ? resultText : inputText;
+
+    if (!textToSpeak) return;
+
+    window.speechSynthesis.cancel(); 
+    const speech = new SpeechSynthesisUtterance(textToSpeak);
+    
+    // 일본어 설정
+    speech.lang = 'ja-JP'; 
+    speech.rate = 1.0;
+
+    window.speechSynthesis.speak(speech);
+}
+
+function clearJpInput() {
+    document.getElementById('jpInput').value = "";
+    const resultDiv = document.getElementById('jpResult');
+    resultDiv.innerText = "";
+    resultDiv.style.display = 'none';
+    window.speechSynthesis.cancel();
 }
 
 </script>
