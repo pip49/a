@@ -493,6 +493,17 @@ function showAnswer() {
 
 window.onload = nextQuiz;
 
+// 격언 클릭 시 입력창으로 복사하는 함수
+function copyProverb() {
+    const proverb = document.getElementById('proverbText').innerText;
+    const inputField = document.getElementById('aiInput');
+
+    // 격언 내용을 입력창에 넣고 포커스를 줍니다.
+    inputField.value = proverb;
+    inputField.focus();
+
+}
+
 // 1. 일본어 번역 함수 추가 (핵심 수정 사항)
 async function runTranslateJP() {
     const text = document.getElementById('aiInput').value;
