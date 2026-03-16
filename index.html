@@ -247,6 +247,18 @@ body {
     <div id="esResult" class="translation-result" style="display:none; border-left-color: #e74c3c; background: #fdf2f2;"></div>
 </div>
 
+
+<div class="ai-translate-box" style="border-color: #f1c40f; margin-top: 10px;">
+    <div style="font-size: 0.8rem; font-weight: bold; color: #f39c12; margin-bottom: 5px;">🇨🇳 중국어 학습 도구</div>
+    <textarea id="zhInput" placeholder="번역할 한글 문장을 입력하세요 (Chinese)."></textarea>
+    <div class="ai-btn-group">
+        <button class="ai-btn" onclick="runZhTranslate()" style="background: #f1c40f; color: #000;">중국어 번역</button>
+        <button class="ai-btn speak" onclick="runZhSpeak()" style="background: #f39c12;">🔊 읽기 (ZH)</button>
+        <button class="ai-btn" onclick="clearZhInput()" style="background: #95a5a6;">초기화</button>
+    </div>
+    <div id="zhResult" class="translation-result" style="display:none; border-left-color: #f1c40f; background: #fffdf0;"></div>
+</div>
+
 <div class="mini-footer">
     <div class="footer-links">
         <a href="list.html">목차</a>
@@ -681,6 +693,58 @@ function clearEsInput() {
     resultDiv.style.display = 'none';
     window.speechSynthesis.cancel();
 }
+
+
+// --- 중국어 번역 및 읽기 기능 함수 ---
+
+async function runZhTranslate() {
+    const text = document.getElementById('zhInput').value;
+    const resultDiv = document.getElementById('zhResult');
+
+    if (!text) { alert("내용을 입력해주세요."); return; }
+
+    resultDiv.style.display = 'block';
+    resultDiv.innerText = "번역 중...";
+
+    try {
+        // 구글 번역 API (한 -> 중국어 간체 tl=zh-CN)
+        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=zh-CN&dt=t&q=${encodeURI(text)}`);
+        const data = await res.json();
+        const translatedText = data[0].map(item => item[0]).join("");
+
+        resultDiv.innerText = translatedText;
+    } catch (e) {
+        resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
+    }
+}
+
+function runZhSpeak() {
+    const resultDiv = document.getElementById('zhResult');
+    const resultText = resultDiv.innerText;
+    const inputText = document.getElementById('zhInput').value;
+
+    const textToSpeak = (resultText && resultText !== "번역 중...") ? resultText : inputText;
+
+    if (!textToSpeak) return;
+
+    window.speechSynthesis.cancel();
+    const speech = new SpeechSynthesisUtterance(textToSpeak);
+    
+    // 중국어 설정 (zh-CN)
+    speech.lang = 'zh-CN'; 
+    speech.rate = 0.9; // 성조를 잘 듣기 위해 약간 천천히 설정
+
+    window.speechSynthesis.speak(speech);
+}
+
+function clearZhInput() {
+    document.getElementById('zhInput').value = "";
+    const resultDiv = document.getElementById('zhResult');
+    resultDiv.innerText = "";
+    resultDiv.style.display = 'none';
+    window.speechSynthesis.cancel();
+}
+
 </script>
 </body>
 </html>
