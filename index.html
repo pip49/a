@@ -609,6 +609,78 @@ function clearInput() {
 }
 
 // --- 일본어 번역 및 읽기 기능 함수 ---
+// --- 일본어 번역, 팝업 및 읽기 기능 통합 관리 ---
+
+async function runJpTranslate() {
+    const text = document.getElementById('jpInput').value;
+    const resultDiv = document.getElementById('jpResult');
+
+    if (!text) { alert("내용을 입력해주세요."); return; }
+
+    resultDiv.style.display = 'block';
+    resultDiv.innerText = "번역 중...";
+
+    try {
+        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=ja&dt=t&q=${encodeURI(text)}`);
+        const data = await res.json();
+        let translatedText = data[0].map(item => item[0]).join("");
+
+        // 단어장 (공부하고 싶은 단어를 여기에 추가하세요)
+        const wordMap = {
+            "電気": { furigana: "でんき", mean: "전기" },
+            "試験": { furigana: "しけん", mean: "시험" },
+            "勉強": { furigana: "べんきょう", mean: "공부" },
+            "楽しい": { furigana: "たのしい", mean: "즐겁다" }
+        };
+
+        // 단어 하이라이트 및 팝업 연결
+        Object.keys(wordMap).forEach(word => {
+            const regex = new RegExp(word, "g");
+            translatedText = translatedText.replace(regex, `<span class="clickable-word" onclick="showWordDetail('${word}', '${wordMap[word].furigana}', '${wordMap[word].mean}')">${word}</span>`);
+        });
+
+        resultDiv.innerHTML = translatedText;
+    } catch (e) {
+        resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
+    }
+}
+
+// [핵심!] 누락되었던 읽기 함수
+function runJpSpeak() {
+    const resultDiv = document.getElementById('jpResult');
+    // 태그를 제외한 순수 텍스트만 추출
+    const textToSpeak = resultDiv.innerText || resultDiv.textContent;
+
+    if (!textToSpeak || textToSpeak === "번역 중...") {
+        alert("번역을 먼저 완료한 후 버튼을 눌러주세요.");
+        return;
+    }
+
+    window.speechSynthesis.cancel(); // 기존 재생 중지
+    const speech = new SpeechSynthesisUtterance(textToSpeak);
+    speech.lang = 'ja-JP'; // 일본어 설정
+    speech.rate = 0.9;     // 약간 천천히 읽기
+    window.speechSynthesis.speak(speech);
+}
+
+// 팝업 관련 함수
+function showWordDetail(word, furi, mean) {
+    document.getElementById('modalHeader').innerText = word;
+    document.getElementById('modalBody').innerHTML = `읽기: [${furi}]<br>뜻: ${mean}`;
+    document.getElementById('wordModal').style.display = 'block';
+}
+
+function closeJpModal() {
+    document.getElementById('wordModal').style.display = 'none';
+}
+
+function clearJpInput() {
+    document.getElementById('jpInput').value = "";
+    const resultDiv = document.getElementById('jpResult');
+    resultDiv.innerText = "";
+    resultDiv.style.display = 'none';
+    window.speechSynthesis.cancel();
+}
 
 async function runJpTranslate() {
     const text = document.getElementById('jpInput').value;
@@ -656,41 +728,6 @@ function clearJpInput() {
     resultDiv.innerText = "";
     resultDiv.style.display = 'none';
     window.speechSynthesis.cancel();
-}
-
-// 일본어 번역 및 단어 분리 시뮬레이션 함수
-async function runJpTranslate() {
-    const text = document.getElementById('jpInput').value;
-    const resultDiv = document.getElementById('jpResult');
-
-    if (!text) { alert("내용을 입력해주세요."); return; }
-
-    resultDiv.style.display = 'block';
-    resultDiv.innerText = "번역 중...";
-
-    try {
-        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=ko&tl=ja&dt=t&q=${encodeURI(text)}`);
-        const data = await res.json();
-        let translatedText = data[0].map(item => item[0]).join("");
-
-        // [핵심] 특정 단어를 클릭 가능한 스팬(span) 태그로 치환하는 로직 (학습용 예시 데이터 기반)
-        // 실제 운영시는 형태소 분석 API 결과에 따라 반복문으로 처리합니다.
-        const wordMap = {
-            "電気": { furigana: "でんき", mean: "전기" },
-            "試験": { furigana: "しけん", mean: "시험" },
-            "勉強": { furigana: "べんきょう", mean: "공부" },
-            "楽しい": { furigana: "たのしい", mean: "즐겁다" }
-        };
-
-        Object.keys(wordMap).forEach(word => {
-            const regex = new RegExp(word, "g");
-            translatedText = translatedText.replace(regex, `<span class="clickable-word" onclick="showWordDetail('${word}', '${wordMap[word].furigana}', '${wordMap[word].mean}')">${word}</span>`);
-        });
-
-        resultDiv.innerHTML = translatedText; // innerText 대신 innerHTML 사용
-    } catch (e) {
-        resultDiv.innerText = "번역 실패.";
-    }
 }
 
 // 팝업 띄우기 함수
