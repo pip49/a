@@ -9,7 +9,7 @@
         :root {
             --bg: #1a1a1a;
             --card: #2d2d2d;
-            --primary: #4ecdc4;
+            --primary: #8B4513; /* 밤갈색 (SaddleBrown) 계통으로 변경 */
             --accent: #ffbc64;
             --text-jp: #ffffff;
             --text-kr: #a0a0a0;
@@ -69,11 +69,24 @@
             background: rgba(255, 188, 100, 0.05); padding: 10px; border-radius: 10px;
         }
 
-        .btn-next {
-            width: 100%; padding: 18px; border: none; border-radius: 15px;
-            background: var(--primary); color: #1a1a1a; font-size: 1.2rem; font-weight: bold;
-            cursor: pointer;
-        }
+    .btn-next {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 15px;
+    background: var(--primary);
+    color: #ffffff; /* 글자색을 흰색으로 변경 */
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* 버튼에 마우스를 올리거나 눌렀을 때 효과 (더 진한 밤색) */
+.btn-next:active {
+    transform: scale(0.98);
+    background: #5D2E0A;
+}
         .hint { color: #666; font-size: 0.85rem; margin-top: 15px; }
 
         /* 재생 중 표시 */
