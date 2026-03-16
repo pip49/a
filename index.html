@@ -4,122 +4,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>일본어 한 문장</title>
+    <title>일본어 상황별 회화</title>
     <style>
         :root {
-            --bg: #1a1a1a; /* 눈이 편안한 다크 모드 스타일 */
+            --bg: #1a1a1a;
             --card: #2d2d2d;
             --primary: #4ecdc4;
+            --accent: #ffbc64;
             --text-jp: #ffffff;
             --text-kr: #a0a0a0;
         }
         body {
             font-family: 'Apple SD Gothic Neo', sans-serif;
             background: var(--bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden; /* 스크롤 방지 */
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
         }
-        .container { width: 85%; max-width: 400px; text-align: center; }
+        .container { width: 90%; max-width: 450px; text-align: center; padding: 20px 0; }
 
-        /* 카드 디자인 */
         .card {
             background: var(--card);
-            padding: 50px 25px;
+            padding: 30px 20px;
             border-radius: 24px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            margin-bottom: 30px;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            transition: transform 0.2s;
-            cursor: pointer;
-            border: 1px solid #3d3d3d;
+            margin-bottom: 25px;
+            min-height: 320px;
+            display: flex; flex-direction: column; justify-content: flex-start;
+            cursor: pointer; border: 1px solid #3d3d3d;
+            text-align: left; /* 대화형이라 왼쪽 정렬이 보기 편함 */
         }
-        .card:active { transform: scale(0.96); }
 
-        .jp {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-jp);
-            margin-bottom: 20px;
-            line-height: 1.4;
-            word-break: keep-all;
-        }
-        .kr {
-            font-size: 1.2rem;
-            color: var(--text-kr);
-            opacity: 0; /* 처음엔 투명하게 */
-            transition: opacity 0.3s;
-        }
-        /* 카드를 터치하면 해석이 보임 */
-        .card.show .kr { opacity: 1; }
-
-        /* 다음 버튼 */
-        .btn-next {
-            width: 100%;
-            padding: 18px;
-            border: none;
-            border-radius: 15px;
+        .situation-tag {
+            display: inline-block;
             background: var(--primary);
             color: #1a1a1a;
-            font-size: 1.2rem;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
-            cursor: pointer;
+            margin-bottom: 20px;
+            width: fit-content;
         }
-        .hint { margin-top: 20px; font-size: 0.9rem; color: #666; }
+
+        /* 루비 문자(후리가나) 스타일 */
+        ruby { ruby-align: center; }
+        rt { font-size: 0.8rem; color: var(--primary); }
+
+        .dialogue { font-size: 1.2rem; line-height: 1.8; color: var(--text-jp); margin-bottom: 20px; }
+        .speaker { color: var(--accent); font-weight: bold; margin-right: 8px; }
+
+        .kr-box {
+            font-size: 1rem; color: var(--text-kr); opacity: 0;
+            transition: opacity 0.3s; border-top: 1px solid #444; padding-top: 15px;
+            line-height: 1.6;
+        }
+
+        .word-box {
+            font-size: 0.85rem; color: var(--accent); opacity: 0;
+            transition: opacity 0.3s; margin-top: 15px;
+            background: rgba(255, 188, 100, 0.1); padding: 10px; border-radius: 10px;
+        }
+
+        .card.show .kr-box, .card.show .word-box { opacity: 1; }
+
+        .btn-next {
+            width: 100%; padding: 18px; border: none; border-radius: 15px;
+            background: var(--primary); color: #1a1a1a; font-size: 1.2rem; font-weight: bold;
+            cursor: pointer; transition: 0.2s;
+        }
+        .btn-next:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="card" id="card" onclick="this.classList.toggle('show')">
-        <div class="jp" id="jp-text">문장을 불러오는 중...</div>
-        <div class="kr" id="kr-text">해석을 불러오는 중...</div>
+        <div id="tag" class="situation-tag">상황 로딩 중</div>
+        <div class="dialogue" id="jp-text"></div>
+        <div class="kr-box" id="kr-text"></div>
+        <div class="word-box" id="word-text"></div>
     </div>
-
-    <button class="btn-next" onclick="nextSentence()">다음 문장 보기</button>
-    <p class="hint">카드를 터치하면 해석이 나타납니다.</p>
+    <button class="btn-next" onclick="nextSentence()">다른 상황 보기</button>
 </div>
 
 <script>
-    // 공부할 문장 리스트 (여기에 문장을 추가하세요)
     const studyData = [
-        { jp: "お元気ですか？", kr: "잘 지내시나요?" },
-        { jp: "お腹がいっぱいです。", kr: "배가 부릅니다." },
-        { jp: "これを一つください。", kr: "이것을 하나 주세요." },
-        { jp: "ちょっと待ってください。", kr: "잠시만 기다려 주세요." },
-        { jp: "分かりました。", kr: "알겠습니다." },
-        { jp: "また会いましょう。", kr: "다음에 또 만나요." }
+        {
+            tag: "식당에서 주문하기",
+            jp: "<span class='speaker'>A:</span> <ruby>注文<rt>ちゅうもん</rt></ruby>、いいですか？<br>" +
+                "<span class='speaker'>B:</span> はい、<ruby>何<rt>なに</rt></ruby>にしますか？",
+            kr: "A: 주문해도 될까요?<br>B: 네, 무엇으로 하시겠어요?",
+            words: "• 注文(ちゅうもん): 주문 • 何(なに): 무엇"
+        },
+        {
+            tag: "길 묻기",
+            jp: "<span class='speaker'>A:</span> <ruby>駅<rt>えき</rt></ruby>은 어디인가요?<br>" +
+                "<span class='speaker'>B:</span> <ruby>直進<rt>ちょくしん</rt></ruby>하면 됩니다.",
+            kr: "A: 역은 어디인가요?<br>B: 직진하면 됩니다.",
+            words: "• 駅(えき): 역 • 直進(ちょくしん): 직진"
+        }
+        // 여기에 제가 만들어 드리는 데이터를 붙여넣으시면 됩니다!
     ];
 
     let lastIndex = -1;
 
     function nextSentence() {
         const card = document.getElementById('card');
-        card.classList.remove('show'); // 새 문장이 나올 때 해석 가리기
+        card.classList.remove('show');
 
         let newIndex;
-        // 같은 문장이 연속으로 나오지 않게 처리
         do {
             newIndex = Math.floor(Math.random() * studyData.length);
-        } while (newIndex === lastIndex && studyData.length > 1);
-
+        } while (newIndex === lastIndex);
         lastIndex = newIndex;
 
-        // 텍스트 교체 (잠시 딜레이를 주어 부드럽게 전환)
         setTimeout(() => {
-            document.getElementById('jp-text').innerText = studyData[newIndex].jp;
-            document.getElementById('kr-text').innerText = studyData[newIndex].kr;
+            document.getElementById('tag').innerText = studyData[newIndex].tag;
+            document.getElementById('jp-text').innerHTML = studyData[newIndex].jp;
+            document.getElementById('kr-text').innerHTML = studyData[newIndex].kr;
+            document.getElementById('word-text').innerText = studyData[newIndex].words;
         }, 150);
     }
 
-    // 페이지 로드 시 첫 문장 실행
     window.onload = nextSentence;
 </script>
 
