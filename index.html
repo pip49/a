@@ -56,9 +56,12 @@
         .kr-box { color: var(--text-kr); font-size: 0.95rem; line-height: 1.6; }
         .full-box { color: var(--text-full); font-size: 1.1rem; line-height: 1.8; position: relative; }
 
-        .card.step-1 .kr-box { display: block; }
-        .card.step-2 .kr-box { display: block; }
-        .card.step-2 .full-box { display: block; }
+/* 기존 내용을 지우고 아래로 교체 */
+.card.step-1 .full-box { display: block; } /* 1단계: 일본어 전문 노출 */
+
+.card.step-2 .full-box { display: block; } /* 2단계: 일본어 전문 유지 */
+.card.step-2 .kr-box { display: block; }   /* 2단계: 한글 해석 추가 노출 */
+
 
         .word-box {
             font-size: 0.85rem; color: var(--accent);
@@ -89,7 +92,7 @@
 	<audio id="audio-player" controls style="width: 100%; margin-top: 15px; background: #f1f3f4; border-radius: 8px;"></audio>
     </div>
     <button class="btn-next" onclick="nextSentence()">다른 상황 보기</button>
-    <p class="hint">클릭: 해석 → 전체 문장 & 음성 듣기 → 초기화</p>
+    <p class="hint">클릭: 일본어 전문 & 음성 → 한글 해석 → 음성 반복</p>
 </div>
 
 <script>
@@ -147,30 +150,28 @@
     let currentStep = 0;
     let isSpeaking = false;
 
-
 function toggleStep() {
     const card = document.getElementById('card');
 
-    // 현재 2단계(전체 일본어 문장)인 경우
+    // 현재 2단계(마지막 단계)인 경우 다음으로 넘어가지 않고 음성만 재생
     if (currentStep === 2) {
-        // 다음 단계로 넘어가지 않고 음성만 다시 재생
         playDialogue();
-        return; // 함수 종료 (단계 전환 방지)
+        return; 
     }
 
-    // 0단계 또는 1단계인 경우에만 다음 단계로 진행
     currentStep = (currentStep + 1) % 3;
 
     card.className = 'card';
     if (currentStep > 0) card.classList.add('step-' + currentStep);
 
-    // 2단계로 진입하는 순간 첫 재생
-    if (currentStep === 2) {
+    // [변경] 1단계(일본어 전문 노출)가 되는 순간 음성 재생
+    if (currentStep === 1) {
         playDialogue();
-    } else {
+    } else if (currentStep === 0) {
         window.speechSynthesis.cancel();
     }
 }
+
 
     async function playDialogue() {
         if (isSpeaking) window.speechSynthesis.cancel();
