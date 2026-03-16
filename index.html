@@ -558,33 +558,37 @@ async function runTranslateJP() {
     }
 }
 
-// 2. 읽어주기 함수 (이미 잘 작성하셨지만, 한번 더 확인)
+// 읽어주기 함수 (일본어 완벽 대응 버전)
 function runSpeak() {
     const resultText = document.getElementById('aiResult').innerText;
-    const resultTextJP = document.getElementById('aiResultJP').innerText;
+    const resultTextJP = document.getElementById('aiResultJP').innerText; // 일본어 결과창 가져오기
     const inputText = document.getElementById('aiInput').value;
 
     let textToSpeak = "";
     let lang = 'ko-KR';
 
-    // 일본어 결과창이 보이고 있으면 일본어 음성 출력
-    if (resultTextJP && document.getElementById('aiResultJP').style.display !== 'none' && resultTextJP !== "일본어로 번역 중...") {
+    // 1. 일본어 결과창이 화면에 보이고 있고, 내용이 비어있지 않다면 일본어로 읽기
+    if (document.getElementById('aiResultJP').style.display !== 'none' && resultTextJP && resultTextJP !== "일본어로 번역 중...") {
         textToSpeak = resultTextJP;
         lang = 'ja-JP';
     }
-    // 한/영 결과창이 보이고 있으면 해당 언어 판별 후 출력
-    else if (resultText && document.getElementById('aiResult').style.display !== 'none' && resultText !== "번역 중...") {
+    // 2. 한/영 결과창이 보이고 있다면 해당 텍스트 읽기
+    else if (document.getElementById('aiResult').style.display !== 'none' && resultText && resultText !== "번역 중...") {
         textToSpeak = resultText;
         lang = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(textToSpeak) ? 'ko-KR' : 'en-US';
     }
-    // 결과창이 다 닫혀있으면 입력창 텍스트를 읽기
+    // 3. 결과창이 모두 닫혀있다면 입력창의 텍스트를 읽기
     else {
         textToSpeak = inputText;
         lang = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(textToSpeak) ? 'ko-KR' : 'en-US';
     }
 
-    if (!textToSpeak) return;
+    if (!textToSpeak) {
+        alert("읽어줄 내용이 없습니다.");
+        return;
+    }
 
+    // 기존 음성 중단 후 재생
     window.speechSynthesis.cancel();
     const speech = new SpeechSynthesisUtterance(textToSpeak);
     speech.lang = lang;
