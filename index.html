@@ -504,6 +504,34 @@ function copyProverb() {
 
 }
 
+// 한/영 번역 실행 함수 (누락된 부분 추가)
+async function runTranslate() {
+    const text = document.getElementById('aiInput').value;
+    const resultDiv = document.getElementById('aiResult');
+    const resultDivJP = document.getElementById('aiResultJP'); // 일본어 결과창
+
+    if (!text) { alert("내용을 입력해주세요."); return; }
+
+    // 일본어 번역창은 닫고 한/영 번역창을 활성화
+    resultDivJP.style.display = 'none';
+    resultDiv.style.display = 'block';
+    resultDiv.innerText = "번역 중...";
+
+    try {
+        // 감지된 언어에 따라 한국어면 영어로, 그 외는 한국어로 번역
+        const isKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
+        const targetLang = isKorean ? 'en' : 'ko';
+
+        const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURI(text)}`);
+        const data = await res.json();
+
+        const translatedFullText = data[0].map(item => item[0]).join("");
+        resultDiv.innerText = translatedFullText;
+    } catch (e) {
+        resultDiv.innerText = "번역 실패. 인터넷 연결을 확인하세요.";
+    }
+}
+
 // 1. 일본어 번역 함수 추가 (핵심 수정 사항)
 async function runTranslateJP() {
     const text = document.getElementById('aiInput').value;
