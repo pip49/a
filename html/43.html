@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .card {
+            background: #ffffff;
+            border: 1px solid #27ae60;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            margin: 20px auto;
+            box-sizing: border-box;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 10px;
+            text-align: center;
+            color: #1e8449;
+        }
+
+        .important-box {
+            background: #f1f9f4;
+            border-left: 5px solid #27ae60;
+            padding: 12px;
+            margin: 15px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .table th { background-color: #f4f4f4; color: #333; }
+        .num-highlight { color: #e74c3c; font-weight: bold; font-size: 1.1rem; }
+
+        .footer-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 15px;
+            text-align: center;
+            background: #eee;
+            padding: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="title">지선(Stay Wire)의 시설 기준</div>
+
+        <div class="important-box">
+            지선은 지지물(전주)의 강도를 보강하여 무너지는 것을 방지하는 선입니다. <b>철탑은 지선을 사용하여 강도를 분담해서는 안 됩니다.</b>
+        </div>
+
+        <table class="table">
+            <colgroup>
+                <col style="width: 55%;">
+                <col style="width: 45%;">
+            </colgroup>
+            <tr>
+                <th>항목</th>
+                <th>기준 수치</th>
+            </tr>
+            <tr>
+                <td>안전율</td>
+                <td><span class="num-highlight">2.5</span> 이상</td>
+            </tr>
+            <tr>
+                <td>허용 인장하중 (최저)</td>
+                <td><span class="num-highlight">4.31</span> kN 이상</td>
+            </tr>
+            <tr>
+                <td>소선 가닥수 (연선)</td>
+                <td><span class="num-highlight">3</span> 가닥 이상</td>
+            </tr>
+            <tr>
+                <td>소선 지름 (금속선)</td>
+                <td><span class="num-highlight">2.6</span> mm 이상</td>
+            </tr>
+            <tr>
+                <td>도로 횡단시 높이</td>
+                <td><span class="num-highlight">5</span> m 이상</td>
+            </tr>
+        </table>
+
+        <div class="footer-note">
+            💡 암기팁: <b>안전율 2.5</b>와 <b>3가닥</b>은 무조건 암기!
+        </div>
+    </div>
+</body>
+</html>
