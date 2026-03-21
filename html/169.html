@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>전기기능사 상세카드 - 애자공사 이격거리</title>
+    <style>
+        :root {
+            --primary: #27ae60;
+            --secondary: #2ecc71;
+            --accent: #f39c12;
+            --bg: #f9f9f9;
+            --text: #2c3e50;
+        }
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            color: var(--text);
+        }
+        .card {
+            width: 100%;
+            max-width: 650px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-top: 10px solid var(--primary);
+        }
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 22px; letter-spacing: -1px; }
+        .content { padding: 30px; }
+        .question-box {
+            background: #f8f9fa;
+            border: 1px dashed #ccc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+        .section-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .section-title::before {
+            content: '📌';
+            margin-right: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 15px 10px;
+            text-align: center;
+        }
+        th { background: #f1f8f4; color: var(--primary); font-weight: 700; }
+        .highlight-red { color: #e74c3c; font-weight: bold; font-size: 1.1em; }
+        .summary-box {
+            margin-top: 25px;
+            background: #fff9f0;
+            border-left: 5px solid var(--accent);
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .summary-box ul { margin: 10px 0 0 0; padding-left: 20px; }
+        .summary-box li { margin-bottom: 8px; }
+        .footer {
+            background: #f1f1f1;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.85em;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header">
+        <h1>📐 애자공사 전선-조영재 이격 거리</h1>
+    </div>
+
+    <div class="content">
+        <div class="question-box">
+            <strong>[Q169]</strong> 애자사용 공사에서 400V 초과 저압 전선과 조영재 사이의 이격 거리는 최소 몇 [cm]인가?
+        </div>
+
+        <div class="section-title">전압별 이격 거리 기준</div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>구분 (사용전압)</th>
+                    <th>전선 상호 간</th>
+                    <th>전선 - 조영재 간</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>400V 미만</td>
+                    <td>6cm 이상</td>
+                    <td>2.5cm 이상</td>
+                </tr>
+                <tr>
+                    <td><strong>400V 이상</strong></td>
+                    <td>6cm 이상</td>
+                    <td><span class="highlight-red">4.5cm 이상</span></td>
+                </tr>
+                <tr>
+                    <td>(건조한 장소)</td>
+                    <td>6cm 이상</td>
+                    <td>2.5cm 이상</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="summary-box">
+            <strong>💡 암기 포인트 (Point!)</strong>
+            <ul>
+                <li><strong>조영재(벽, 천장):</strong> 전압이 세지면(400V 초과) 위험하니까 더 멀리(2.5 &rarr; 4.5cm) 띄워야 합니다.</li>
+                <li><strong>단, 건조한 장소:</strong> 400V가 넘더라도 습기가 없으면 안전하므로 다시 <strong>2.5cm</strong>까지 봐줍니다.</li>
+                <li><strong>전선끼리(상호 간):</strong> 전압 상관없이 무조건 <strong>6cm</strong>입니다.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        ※ 조영재: 건물의 벽, 기둥, 천장 등 시설물을 의미합니다.
+    </div>
+</div>
+
+</body>
+</html>
