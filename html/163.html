@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>전기기능사 상세카드 - 직류발전기</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #e74c3c;
+            --bg: #f4f7f6;
+            --white: #ffffff;
+        }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            width: 100%;
+            max-width: 700px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-top: 8px solid var(--primary);
+        }
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 { margin: 0; font-size: 24px; }
+        .content { padding: 30px; }
+        .section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 1.2em;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .info-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid var(--accent);
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th { background: #eee; color: var(--primary); }
+        .highlight { color: var(--accent); font-weight: bold; }
+        .formula {
+            background: #34495e;
+            color: #ecf0f1;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 1.3em;
+            margin: 20px 0;
+        }
+        .footer {
+            background: #f1f1f1;
+            padding: 15px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="header">
+        <h1>⚡ 직류발전기 & 권선법 마스터</h1>
+    </div>
+
+    <div class="content">
+        <div class="section-title">1. 직류기의 3대 구성 요소</div>
+        <div class="grid">
+            <div class="info-box">
+                <strong>계자 (Field)</strong><br>
+                자속($\phi$)을 발생하는 부분 (고정자)
+            </div>
+            <div class="info-box">
+                <strong>전기자 (Armature)</strong><br>
+                자속을 끊어 기전력을 발생 (회전자)
+            </div>
+            <div class="info-box" style="grid-column: span 2;">
+                <strong>정류자 (Commutator)</strong><br>
+                발생된 교류(AC)를 직류(DC)로 변환
+            </div>
+        </div>
+
+        <div class="section-title">2. 전기자 권선법 비교 (중권 vs 파권)</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>구분</th>
+                    <th>중권 (Lap)</th>
+                    <th>파권 (Wave)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>병렬 회로수 ($a$)</td>
+                    <td class="highlight">$a = P$ (극수)</td>
+                    <td class="highlight">$a = 2$ (고정)</td>
+                </tr>
+                <tr>
+                    <td>브러시 수</td>
+                    <td>극수와 동일</td>
+                    <td>항상 2개</td>
+                </tr>
+                <tr>
+                    <td>특징</td>
+                    <td><span class="highlight">저전압 대전류</span></td>
+                    <td><span class="highlight">고전압 소전류</span></td>
+                </tr>
+                <tr>
+                    <td>균압환</td>
+                    <td>필요</td>
+                    <td>불필요</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-title">3. 유기 기전력 공식</div>
+        <div class="formula">
+            $E = \frac{P \cdot Z}{60 \cdot a} \cdot \phi \cdot N$ [V]
+        </div>
+        <p style="text-align: center; font-size: 0.9em;">
+            ($P$: 극수, $Z$: 총도체수, $a$: 병렬회로수, $\phi$: 자속, $N$: 회전수)
+        </p>
+
+        <div class="section-title">💡 암기 팁</div>
+        <ul style="line-height: 1.8;">
+            <li><strong>중</strong>권: <strong>중</strong>요하니까 병렬 회로가 <strong>많음(P개)</strong> &rarr; <strong>대</strong>전류</li>
+            <li><strong>파</strong>권: <strong>'2'</strong>글자니까 병렬 회로가 무조건 <strong>2개</strong> &rarr; <strong>고</strong>전압</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        전기기능사 필기 핵심 요약 - 직류기 파트
+    </div>
+</div>
+
+<script>
+    // MathJax for LaTeX rendering
+    window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+    };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</body>
+</html>
