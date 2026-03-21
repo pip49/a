@@ -3,126 +3,115 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>전기기능사 상세카드 - 유도전동기 슬립</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 카드 - 유도전동기 슬립</title>
     <style>
-        :root {
-            --primary: #3498db;
-            --secondary: #2980b9;
-            --accent: #e67e22;
-            --bg: #fdfdfd;
-            --text: #2c3e50;
-        }
         body {
             font-family: 'Pretendard', sans-serif;
-            background-color: #e9ecef;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            padding: 20px;
-            color: var(--text);
         }
+
         .card {
+            background: #ffffff;
             width: 100%;
-            max-width: 600px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            overflow: hidden;
-            border-top: 8px solid var(--primary);
-        }
-        .header {
-            background: var(--primary);
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .header h1 { margin: 0; font-size: 22px; }
-        .content { padding: 25px; }
-        .formula-box {
-            background: #f8f9fa;
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        .formula {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: var(--secondary);
-            margin-bottom: 10px;
-        }
-        .example {
-            background: #fff4e6;
-            padding: 15px;
+            max-width: 400px;
             border-radius: 8px;
-            border-left: 5px solid var(--accent);
+            padding: 20px;
+            box-shadow: none;
+            border: 1px solid #000000;
         }
-        .step {
-            margin-bottom: 10px;
-            padding-left: 10px;
-        }
-        .highlight { color: #e74c3c; font-weight: bold; }
-        .footer {
-            background: #f1f1f1;
-            padding: 15px;
+
+        .title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 15px;
             text-align: center;
-            font-size: 0.9em;
-            color: #666;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 8px;
+        }
+
+        .section { margin-bottom: 15px; }
+
+        .label {
+            font-weight: bold;
+            color: #000000;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .content {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #000000;
+        }
+
+        .red {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .formula {
+            background: #ffffff;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #000000;
+            border: 1px solid #000000;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #000000;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
         }
     </style>
 </head>
 <body>
+    <div class="card">
+        <div class="title">유도전동기 슬립 (Slip)</div>
 
-<div class="card">
-    <div class="header">
-        <h1>⚙️ 유도전동기의 핵심: 슬립(Slip)</h1>
-    </div>
-
-    <div class="content">
-        <p><strong>슬립($s$)이란?</strong><br>동기속도($N_s$)와 실제 회전속도($N$)의 차이를 비율로 나타낸 것으로, 전동기가 얼마나 '미끄러지고 있는가'를 의미합니다.</p>
-
-        <div class="formula-box">
-            <div class="formula">
-                $s = \frac{N_s - N}{N_s} \times 100$ [%]
-            </div>
-            <p style="font-size: 0.9em; color: #555;">
-                $N_s$: 동기속도 (자기장 속도)<br>
-                $N$: 회전자 속도 (실제 속도)
-            </p>
+        <div class="section">
+            <span class="label">1. 정의</span>
+            <div class="content">동기속도($N_s$)와 실제 회전속도($N$)의 차이를 비율로 나타낸 <span class="red">손실률(미끄럼)</span></div>
         </div>
 
-        <div class="section-title" style="font-weight: bold; color: var(--primary); margin-bottom: 10px;">📝 165번 문제 풀이 과정</div>
-        <div class="example">
-            <div class="step">1. <strong>동기속도($N_s$) 확인:</strong> 1,800 [rpm]</div>
-            <div class="step">2. <strong>회전속도($N$) 확인:</strong> 1,728 [rpm]</div>
-            <div class="step">3. <strong>공식 대입:</strong></div>
-            <div style="text-align: center; margin: 10px 0;">
-                $s = \frac{1800 - 1728}{1800} = \frac{72}{1800}$
-            </div>
-            <div class="step">4. <strong>결과 계산:</strong> $0.04 \times 100 = \mathbf{4\%}$</div>
+        <div class="section">
+            <span class="label">2. 계산 공식 (암기)</span>
+            <div class="formula">s = (Nₛ - N) / Nₛ × 100 [%]</div>
+            <div class="content">- $N_s$: <span class="bold">동기속도</span> (자기장 속도)</div>
+            <div class="content">- $N$: <span class="bold">회전자 속도</span> (실제 속도)</div>
         </div>
 
-        <div style="margin-top: 20px;">
-            <strong>💡 상태별 슬립 값 암기!</strong>
-            <ul>
-                <li><strong>정지 상태:</strong> $s = 1$ (미끄러짐 100%)</li>
-                <li><strong>동기 속도 회전:</strong> $s = 0$ (미끄러짐 0%)</li>
-                <li><strong>역전(제동):</strong> $1 < s < 2$</li>
-            </ul>
+        <div class="section">
+            <span class="label">3. 문제 풀이 (165번)</span>
+            <div class="content">조건: $N_s$ = 1800, $N$ = 1728</div>
+            <div class="content">계산: (1800 - 1728) / 1800</div>
+            <div class="content">결과: 0.04 &rarr; <span class="red">4 [%]</span></div>
         </div>
+
+        <div class="section">
+            <span class="label">4. 상태별 슬립 값</span>
+            <div class="content">- 정지 시: <span class="bold">s = 1</span></div>
+            <div class="content">- 동기속도 회전 시: <span class="bold">s = 0</span></div>
+            <div class="content">- 역전(제동) 시: <span class="red">1 < s < 2</span></div>
+        </div>
+
+        <footer>전기기능사 필기 요약</footer>
     </div>
-
-    <div class="footer">
-        전기기능사 계산 문제 핵심 요약
-    </div>
-</div>
-
-<script>
-    window.MathJax = {
-        tex: { inlineMath: [['$', '$']] }
-    };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
 </body>
 </html>
