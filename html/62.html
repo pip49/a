@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기기능사 상세카드 - 권선법(단절권/분포권)</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #f0f2f5; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .card { background: #ffffff; width: 100%; max-width: 500px; border-radius: 15px; padding: 25px; border: 1px solid #d1d9e6; box-shadow: 0 10px 20px rgba(0,0,0,0.05); box-sizing: border-box; margin-bottom: 20px; }
+        .header { background: #1a73e8; color: white; margin: -25px -25px 20px -25px; padding: 20px; border-radius: 15px 15px 0 0; text-align: center; }
+        .header h2 { margin: 0; font-size: 1.25rem; }
+        .concept-title { font-weight: bold; color: #1a73e8; font-size: 1.1rem; margin-top: 15px; display: flex; align-items: center; }
+        .concept-title::before { content: "✔"; margin-right: 8px; }
+        .desc { font-size: 0.95rem; line-height: 1.7; color: #3c4043; margin: 10px 0; padding-left: 5px; }
+        .benefit-box { background: #e8f0fe; border-radius: 8px; padding: 12px; margin-top: 10px; border-left: 5px solid #1a73e8; }
+        .benefit-title { font-weight: bold; font-size: 0.9rem; color: #1967d2; margin-bottom: 5px; }
+        .key-point { color: #d93025; font-weight: bold; }
+        footer { text-align: center; font-size: 0.85rem; color: #70757a; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            <h2>교류 발전기 권선법 핵심 요약</h2>
+        </div>
+
+        <!-- 단절권 설명 -->
+        <div class="section">
+            <div class="concept-title">단절권 (Short-Pitch Winding)</div>
+            <div class="desc">
+                코일의 간격을 자극의 간격(N극과 S극 사이)보다 <span class="key-point">짧게</span> 감는 방법입니다.
+                원래 가야 할 길이보다 덜 가서 감는다고 생각하면 쉽습니다.
+            </div>
+            <div class="benefit-box">
+                <div class="benefit-title">왜 이렇게 감나요?</div>
+                1. <b>고조파 제거:</b> 전압의 파형을 예쁜 사인파로 만듭니다.<br>
+                2. <b>동량 절약:</b> 코일 끝부분(권선 오버랩)이 짧아져 구리 양이 줄어듭니다.
+            </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+        <!-- 분포권 설명 -->
+        <div class="section">
+            <div class="concept-title">분포권 (Distributed Winding)</div>
+            <div class="desc">
+                코일을 한 구멍(슬롯)에 몰아서 감지 않고, <span class="key-point">여러 구멍에 나누어</span> 골고루 감는 방법입니다. (반대말: 집중권)
+            </div>
+            <div class="benefit-box">
+                <div class="benefit-title">왜 이렇게 감나요?</div>
+                1. <b>고조파 제거:</b> 단절권과 마찬가지로 파형이 좋아집니다.<br>
+                2. <b>누설 리액턴스 감소:</b> 전압 강하를 줄여줍니다.<br>
+                3. <b>냉각 효과:</b> 코일이 분산되어 열이 잘 빠집니다.
+            </div>
+        </div>
+
+        <div class="section" style="margin-top: 25px; border: 1px dashed #1a73e8; padding: 10px; border-radius: 8px;">
+            <div style="font-weight: bold; text-align: center; margin-bottom: 5px;">⚠️ 시험에 무조건 나오는 결론</div>
+            <div class="desc" style="text-align: center; font-size: 0.9rem;">
+                단절권과 분포권을 사용하는 가장 큰 이유는?<br>
+                <span class="key-point" style="font-size: 1.1rem;">"고조파를 제거하여 파형을 개선하기 위해"</span>
+            </div>
+        </div>
+
+        <footer>동기발전기 권선법 - 제62번 상세 해설</footer>
+    </div>
+
+</body>
+</html>

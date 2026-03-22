@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전기이론 상세카드 - 병렬공진/과도상태/자기포화</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; background-color: #f4f4f4; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .card { background: #ffffff; width: 100%; max-width: 500px; border-radius: 12px; padding: 25px; border: 2px solid #333; box-shadow: 5px 5px 0px #333; box-sizing: border-box; }
+        .title { font-size: 1.3rem; font-weight: 800; color: #fff; background: #333; margin: -25px -25px 20px -25px; padding: 15px; border-radius: 10px 10px 0 0; text-align: center; }
+        .section { margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 10px; }
+        .section:last-child { border-bottom: none; }
+        .label { font-weight: bold; color: #e67e22; font-size: 1rem; margin-bottom: 5px; display: block; }
+        .content { font-size: 0.95rem; line-height: 1.6; color: #2c3e50; }
+        .highlight { background-color: #fff3cd; font-weight: bold; padding: 2px 4px; }
+        .formula { background: #f8f9fa; padding: 10px; text-align: center; font-family: 'Courier New', monospace; font-weight: bold; border: 1px solid #eee; margin: 10px 0; }
+        .footer { text-align: right; font-size: 0.8rem; color: #95a5a6; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- 카드 1: 병렬공진 -->
+    <div class="card">
+        <div class="title">1. 병렬공진 (Parallel Resonance)</div>
+        <div class="section">
+            <span class="label">▣ 정의</span>
+            <div class="content">RLC 병렬회로에서 유도 리액턴스($X_L$)와 용량 리액턴스($X_C$)가 같아져 허수부(서셉턴스)가 0이 되는 상태</div>
+        </div>
+        <div class="section">
+            <span class="label">▣ 핵심 특징 (시험 단골)</span>
+            <div class="content">
+                * 임피던스($Z$): <span class="highlight">최대</span><br>
+                * 전류($I$): <span class="highlight">최소</span> (전압과 전류가 동상)<br>
+                * 주로 '전류공진'이라고도 불림
+            </div>
+        </div>
+        <div class="footer">※ 직렬공진(임피던스 최소, 전류 최대)과 정반대!</div>
+    </div>
+
+    <!-- 카드 2: 과도상태 -->
+    <div class="card" style="border-color: #2980b9; box-shadow: 5px 5px 0px #2980b9;">
+        <div class="title" style="background: #2980b9;">2. 과도상태 (Transient State)</div>
+        <div class="section">
+            <span class="label">▣ 정의</span>
+            <div class="content">회로에 전원을 인가하거나 차단하는 순간, 에너지가 변화하며 <span class="highlight">정상상태에 이르기까지의 시간적 변화</span> 과정</div>
+        </div>
+        <div class="section">
+            <span class="label">▣ 시정수 (Time Constant, τ)</span>
+            <div class="content">
+                정상치의 63.2%에 도달하는 시간 (빠를수록 회로 안정화가 빠름)
+                <div class="formula">RL 회로: τ = L / R<br>RC 회로: τ = R × C</div>
+            </div>
+        </div>
+        <div class="footer">※ 시험문제: "시정수가 클수록 응답속도는 느려진다"</div>
+    </div>
+
+    <!-- 카드 3: 자기포화 -->
+    <div class="card" style="border-color: #27ae60; box-shadow: 5px 5px 0px #27ae60;">
+        <div class="title" style="background: #27ae60;">3. 자기포화 (Magnetic Saturation)</div>
+        <div class="section">
+            <span class="label">▣ 정의</span>
+            <div class="content">철심에 자력(H)을 계속 가해도 자속밀도(B)가 더 이상 <span class="highlight">일정 수준 이상 증가하지 않는 현상</span></div>
+        </div>
+        <div class="section">
+            <span class="label">▣ 영향</span>
+            <div class="content">
+                * 투자율($μ$)의 감소<br>
+                * 히스테리시스 곡선(B-H 곡선)이 꺾이는 지점<br>
+                * 변압기나 발전기의 효율 저하 원인
+            </div>
+        </div>
+        <div class="footer">※ 배가 부르면 더 먹어도 살이 안 찌는 것과 비슷합니다!</div>
+    </div>
+
+</body>
+</html>
